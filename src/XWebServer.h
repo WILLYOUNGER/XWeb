@@ -17,12 +17,13 @@ private:
 
 	void ReadCallback(XNETSTRUCT::XMsgPtr msg);
 
-	void WriteCallback(XNETSTRUCT::XSocket socket);
+	void WriteCallback(XNETSTRUCT::XSocket epollfd, XNETSTRUCT::XSocket socket);
 private:
 	XNETBASE::XServer* m_web_server;
 
 	XPthreadPool<XNETSTRUCT::XMsgPtr, XHttp>* pool;
-
+public:
+	static std::map<XNETSTRUCT::XSocket, std::list<std::string>*> m_reply;
 };
 
 #endif

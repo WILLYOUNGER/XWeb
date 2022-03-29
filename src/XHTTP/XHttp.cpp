@@ -4,11 +4,20 @@
 #include "../Xml/tinystr.h"
 #include "../XUserServlet/XServletDefine.h"
 #include "../XUtils/XUtils.h"
+#include "../XWebServer.h"
 
-#include <iostream>
+#include <sys/epoll.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <map>
+#include <list>
+#include <regex>
 
 using namespace std;
 using namespace XNETSTRUCT;
+using namespace XUTILS;
 
 XHttp::XHttp()
 {
@@ -28,6 +37,8 @@ void XHttp::init()
 void XHttp::process(XMsgPtr &msg)
 {
 	m_msg = msg;
+	cout << "msg: epollfd:" << msg->getEpollfd() << endl;
+	cout << "msg: fd: " << msg->getSocket() << endl;
 	m_read_now = 0;
 	m_line_begin = 0;
 	m_content_length == 0;
@@ -41,9 +52,11 @@ void XHttp::process(XMsgPtr &msg)
 	if (res == GET_REQUEST)
 	{
 		path2servlet(m_request.getPath());
+		cout << "deal request!" << endl;
 		if (m_response.isEmpty())
 		{
 			do_request(m_request.getPath());
+			cout << "auto deal request!" << endl;
 		}
 	}
 	else if (res == BAD_REQUEST)
@@ -160,7 +173,7 @@ HTTP_CODE XHttp::parse_request_line(string &str)
 	string res;
 	split(str, ' ', res);
 	m_method = Str2MetHod(res);
-	//cout << "method:"<< m_method << endl;
+	cout << "method:"<< m_method << endl;
 	m_request.setMethod(m_method);
 	split(str, ' ', res);
 	if (res == "/")
@@ -168,10 +181,10 @@ HTTP_CODE XHttp::parse_request_line(string &str)
 		res += "index.html";
 	}
 	m_request.setPath(res);
-	//cout << ":"<< res << endl;
+	cout << ":"<< res << endl;
 	split(str, ' ', res);
 	m_request.setVersion(res);
-	//cout << ":"<< res << endl;
+	cout << ":"<< res << endl;
 	m_check_state = CHECK_STATE_HEADER;
 	return GET_REQUEST;
 }
@@ -191,8 +204,8 @@ HTTP_CODE XHttp::parse_request_header(string &str)
 	{
 		string key, value;
 		split(str, ':', key);
-		//cout << "key:" << key ;
-		//cout << " value:" << str << endl;
+		cout << "key:" << key ;
+		cout << " value:" << str << endl;
 		m_request.setAttribute(key, str);
 		if (key == "Content-Length")
 		{
@@ -215,8 +228,8 @@ XNETSTRUCT::HTTP_CODE XHttp::parse_request_content(std::string &str)
 	{
 		ret = split(str, '&', body);
 		split(body, '=', key);
-		//cout << "key:" << key ;
-		//cout << " value:" << body << endl;
+		cout << "key:" << key ;
+		cout << " value:" << body << endl;
 		m_request.setAttribute(key, body);
 	}
 
@@ -320,28 +333,73 @@ bool XHttp::xml2map()
 
 void XHttp::sendResponse()
 {
-	if (m_response.isEmpty || m_response.getHttpCode() == NO_RESOURCE)
+	if (m_response.isEmpty() || m_response.getHttpCode() == NO_REQUEST)
 	{
-		UTILS->modefd(m_msg.getEpollfd(), m_msg.getSocket(), EPOLLIN, 0);
+		return;
 	}
-	if ()
 
+	string _httpStr = "";
 
-	UTILS->modefd(m_msg.getEpollfd(), m_msg.getSocket(), EPOLLIN, 0)
+	dealresponse(_httpStr);
+
+	string response = string(_httpStr) + string(m_response.getFileAddress());
+
+	if (XWebServer::m_reply.count(m_msg->getSocket()) == 0)
+	{
+		list<string> *replyList = new list<string>();
+		replyList->push_back(response);
+		XWebServer::m_reply[m_msg->getSocket()] = replyList;
+	}
+	else
+	{
+		XWebServer::m_reply[m_msg->getSocket()]->push_back(response);
+	}
+
+	cout << "notify baseNet write response!" << endl;
+	cout << response << endl;
+	UTILS->modfd(m_msg->getEpollfd(), m_msg->getSocket(), EPOLLOUT, 0);
 }
 
-void XHttp::do_request(std::string &str)
+void XHttp::dealresponse(std::string &str)
 {
-	if (str == "")
-	std::regex html_reg(".+\.html");
+	HTTP_CODE _code = m_response.getHttpCode();
+	if (_code == NO_RESOURCE)
+	{
+
+	}
+	else if (_code == FORBIDDEN_REQUEST)
+	{
+
+	}
+	else if (_code == FILE_REQUEST)
+	{
+		str = str + "HTTP/1.1 200 OK\r\n";
+		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
+		str = str + "Connection: close\r\n";
+		str = str + "\r\n";
+	}
+	else if (_code == INTERNAL_ERROR)
+	{
+
+	}
+	else if (_code == BAD_REQUEST)
+	{
+
+	}
+	m_response.setHeadAddress(str.c_str());
+}
+
+void XHttp::do_request(string str)
+{
+	std::regex html_reg(".+\\.html");
 	bool ret = std::regex_match(str, html_reg);
 	string appPath(getcwd(NULL, 0));
     string seperator = "/../src/XRoot";
     string fullPath = appPath + seperator + str;
-    stat _file_stat
-	if (res)
+    struct stat _file_stat;
+	if (ret)
 	{
-		if (stat(fullPath, &_file_stat) < 0)
+		if (stat(fullPath.c_str(), &_file_stat) < 0)
 		{
 			m_response.setHttpCode(NO_RESOURCE);
 		}
@@ -351,14 +409,15 @@ void XHttp::do_request(std::string &str)
 	        m_response.setHttpCode(FORBIDDEN_REQUEST);
 	    }
 
-	    if (S_ISDIR(m_file_stat.st_mode))
+	    if (S_ISDIR(_file_stat.st_mode))
 	    {
 	        m_response.setHttpCode(BAD_REQUEST);
 	    }
 
 
-	    int fd = open(fullPath, O_RDONLY);
-	    m_response.setFileAddress((char *)mmap(0, m_file_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0));
+	    int fd = open(fullPath.c_str(), O_RDONLY);
+	    m_response.setFileAddress((char *)mmap(0, _file_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0));
+	    m_response.setContentLength(_file_stat.st_size);
 	    close(fd);
 	    m_response.setHttpCode(FILE_REQUEST);
 	    m_response.setNotEmpty();

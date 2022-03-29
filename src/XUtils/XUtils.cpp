@@ -70,6 +70,8 @@ void Utils::removefd(XSocket epollfd, XSocket fd)
 
 void Utils::modfd(XSocket epollfd, XSocket fd, int ev, int mode)
 {
+	cout << "modfd epollfd: " << epollfd << endl;
+	cout << "modfd sockfd: " << fd << endl;
 	epoll_event event;
 	event.data.fd = fd;
     if (1 == mode)

@@ -25,7 +25,7 @@ public:
 
 	~XHttp();
 
-	XNETSTRUCT::HTTP_CODE process(XNETSTRUCT::XMsgPtr &msg);
+	void process(XNETSTRUCT::XMsgPtr &msg);
 private:
 	void init();
 
@@ -70,7 +70,9 @@ private:
 
 	void sendResponse();
 
-	void do_request(std::string &str);
+	void do_request(std::string str);
+
+	void dealresponse(std::string &str);
 private:
 	int m_read_now{0};
 	int m_read_end{0};

@@ -83,8 +83,7 @@ class XResponse
 public:
 	XResponse()
 	{
-		m_http_code = NO_RESOURCE;
-		m_isEmpty = true;
+		clear();
 	}
 
 	void setHttpCode(HTTP_CODE code) {m_http_code = code;}
@@ -95,6 +94,8 @@ public:
 	{
 		m_http_code = NO_RESOURCE;
 		m_isEmpty = true;
+		m_content_length = 0;
+		m_head = nullptr;
 	}
 
 	void setNotEmpty()
@@ -116,12 +117,36 @@ public:
 	{
 		return m_file_address;
 	}
+
+	void setContentLength(int length)
+	{
+		m_content_length = length;
+	}
+
+	int getContentLength()
+	{
+		return m_content_length;
+	}
+
+	void setHeadAddress(const char* _head)
+	{
+		m_head = _head;
+	}
+
+	const char* getHeadAddress()
+	{
+		return m_head;
+	}
 private:
 	HTTP_CODE m_http_code;
 
 	bool m_isEmpty;
 
 	char* m_file_address;
+
+	int m_content_length;
+
+	const char* m_head;
 };
 
 }

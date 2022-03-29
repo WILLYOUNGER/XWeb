@@ -17,7 +17,25 @@ unistd.h
 /home/will/Documents/my/Linux/linuxSever/XWeb/src/Xml/tinystr.h
 ../XUserServlet/XServletDefine.h
 /home/will/Documents/my/Linux/linuxSever/XWeb/src/XUserServlet/XServletDefine.h
-iostream
+../XUtils/XUtils.h
+/home/will/Documents/my/Linux/linuxSever/XWeb/src/XUtils/XUtils.h
+../XWebServer.h
+/home/will/Documents/my/Linux/linuxSever/XWeb/src/XWebServer.h
+sys/epoll.h
+-
+sys/stat.h
+-
+sys/mman.h
+-
+sys/types.h
+-
+fcntl.h
+-
+map
+-
+list
+-
+regex
 -
 
 /home/will/Documents/my/Linux/linuxSever/XWeb/src/XHTTP/XHttp.h
@@ -83,6 +101,8 @@ memory
 -
 functional
 -
+iostream
+-
 
 /home/will/Documents/my/Linux/linuxSever/XWeb/src/XUserServlet/XServletDefine.h
 map
@@ -104,10 +124,18 @@ pthread.h
 semaphore.h
 -
 
+/home/will/Documents/my/Linux/linuxSever/XWeb/src/XUtils/XUtils.h
+../XStruct/XStruct.h
+/home/will/Documents/my/Linux/linuxSever/XWeb/src/XStruct/XStruct.h
+
 /home/will/Documents/my/Linux/linuxSever/XWeb/src/XWebServer.cpp
 XWebServer.h
 /home/will/Documents/my/Linux/linuxSever/XWeb/src/XWebServer.h
+./XUtils/XUtils.h
+/home/will/Documents/my/Linux/linuxSever/XWeb/src/XUtils/XUtils.h
 iostream
+-
+sys/epoll.h
 -
 
 /home/will/Documents/my/Linux/linuxSever/XWeb/src/XWebServer.h

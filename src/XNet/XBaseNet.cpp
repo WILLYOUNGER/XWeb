@@ -55,6 +55,9 @@ void XServer::beginListen()
 	assert(ret != -1);
 
 	m_epollfd = epoll_create(5);
+
+	cout << "epollfd: " << m_epollfd << endl;
+
 	assert(m_epollfd != -1);
 	UTILS->setnonblocking(m_epollfd);
 	UTILS->addfd(m_epollfd, m_sockfd, false, m_mode);
@@ -174,8 +177,9 @@ void XServer::run()
 					}
 					if (!_isError)
 					{
-						auto _mes = make_shared<XMessage>(new XMessage(_read_buf));
-						m_readCb(_mes);
+						cout << "::::" << m_epollfd << "::::" << sockfd << endl;
+						auto mes = make_shared<XMessage>(new XMessage(_read_buf, m_epollfd, sockfd));
+						m_readCb(mes);
 					}
 				}
 			}
@@ -187,7 +191,7 @@ void XServer::run()
 				}
 				else
 				{
-					m_writeCb(sockfd);
+					m_writeCb(m_epollfd, sockfd);
 				}
 			}
 		}
@@ -315,11 +319,11 @@ void XClient::run()
 						cout << "client's readCallback is null." << endl;
 					}
 				}
-				else if (events[i].events & EPOLLOUT)
+				else if (events[i].events & EPOLLIN)
 				{
 					if (m_writeCb)
 					{
-						m_writeCb(sockfd);
+						m_writeCb(m_epollfd, sockfd);
 					}
 					else
 					{
