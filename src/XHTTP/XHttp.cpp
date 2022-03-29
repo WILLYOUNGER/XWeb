@@ -1,0 +1,366 @@
+#include "XHttp.h"
+#include <unistd.h>
+#include "../Xml/tinyxml.h"
+#include "../Xml/tinystr.h"
+#include "../XUserServlet/XServletDefine.h"
+#include "../XUtils/XUtils.h"
+
+#include <iostream>
+
+using namespace std;
+using namespace XNETSTRUCT;
+
+XHttp::XHttp()
+{
+	init();
+}
+
+XHttp::~XHttp()
+{
+
+}
+
+void XHttp::init()
+{
+	xml2map();
+}
+
+void XHttp::process(XMsgPtr &msg)
+{
+	m_msg = msg;
+	m_read_now = 0;
+	m_line_begin = 0;
+	m_content_length == 0;
+	m_request.clear();
+	m_response.clear();
+	m_read_end = msg->getContent().length();
+	m_method = GET;
+	m_msg_str = msg->getContent();
+	m_check_state = CHECK_STATE_REQUESTLINE;
+	HTTP_CODE res = generateRequest();
+	if (res == GET_REQUEST)
+	{
+		path2servlet(m_request.getPath());
+		if (m_response.isEmpty())
+		{
+			do_request(m_request.getPath());
+		}
+	}
+	else if (res == BAD_REQUEST)
+	{
+
+	}
+	else if (res == INTERNAL_ERROR)
+	{
+
+	}
+	else if (res == NO_REQUEST)
+	{
+
+	}
+
+	sendResponse();
+}
+
+HTTP_CODE XHttp::generateRequest()
+{
+	LINE_STATUS line_status = LINE_OK;
+
+	HTTP_CODE ret = NO_REQUEST;
+	string now_line;
+
+	while (((m_check_state == CHECK_STATE_CONTENT) && (line_status == LINE_OK)) || (line_status = parse_line()) == LINE_OK)
+	{
+		string now_line = m_msg_str.substr(m_line_begin, m_line_end - m_line_begin);
+		m_line_begin = m_read_now;
+		//cout << "got a http line: " << now_line << endl;
+
+		switch (m_check_state)
+		{
+			case CHECK_STATE_REQUESTLINE:
+			{
+				ret = parse_request_line(now_line);
+				if (ret == BAD_REQUEST)
+				{
+					return BAD_REQUEST;
+				}
+				break;
+			}
+			case CHECK_STATE_HEADER:
+			{
+				ret = parse_request_header(now_line);
+				if (ret == BAD_REQUEST)
+				{
+					return BAD_REQUEST;
+				}
+				else if (ret == GET_REQUEST)
+				{
+					return GET_REQUEST;
+				}
+				break;
+			}
+			case CHECK_STATE_CONTENT:
+			{
+				ret = parse_request_content(now_line);
+				if (ret == GET_REQUEST)
+				{
+					return GET_REQUEST;;
+				}
+				line_status == LINE_OPEN;
+				break;
+			}
+			default:
+			{
+				return INTERNAL_ERROR;
+			}
+		}
+	}
+	return NO_REQUEST;
+}
+
+XHttp::LINE_STATUS XHttp::parse_line()
+{
+	char now;
+	m_line_begin = m_read_now;
+	for (; m_read_now < m_read_end; m_read_now ++)
+	{
+		now = m_msg_str[m_read_now];
+		if (now == '\r')
+		{
+			if (m_read_now + 1 == m_read_end)
+			{
+				return LINE_OPEN;
+			}
+			else if (m_msg_str[m_read_now + 1] == '\n')
+			{
+				m_line_end = m_read_now;
+				m_read_now+=2;
+				return LINE_OK;
+			}
+			return LINE_BAD;
+		}
+		else if (now == '\n')
+		{
+			if (m_read_now > 0 && m_msg_str[m_read_now - 1] == '\r')
+			{
+				m_read_now++;
+				m_line_end = m_read_now-1;
+				return LINE_OK;
+			}
+			return LINE_BAD;
+		}
+	}
+	return LINE_BAD;
+}
+
+HTTP_CODE XHttp::parse_request_line(string &str)
+{
+	// got a http line: GET / HTTP/1.1
+	// what version http and what method
+	string res;
+	split(str, ' ', res);
+	m_method = Str2MetHod(res);
+	//cout << "method:"<< m_method << endl;
+	m_request.setMethod(m_method);
+	split(str, ' ', res);
+	if (res == "/")
+	{
+		res += "index.html";
+	}
+	m_request.setPath(res);
+	//cout << ":"<< res << endl;
+	split(str, ' ', res);
+	m_request.setVersion(res);
+	//cout << ":"<< res << endl;
+	m_check_state = CHECK_STATE_HEADER;
+	return GET_REQUEST;
+}
+
+HTTP_CODE XHttp::parse_request_header(string &str)
+{
+	if (str[0] == '\0')
+	{
+		if (m_content_length == 0)
+		{
+			return GET_REQUEST;
+		}
+		m_check_state = CHECK_STATE_CONTENT;
+		return NO_REQUEST;
+	}
+	else
+	{
+		string key, value;
+		split(str, ':', key);
+		//cout << "key:" << key ;
+		//cout << " value:" << str << endl;
+		m_request.setAttribute(key, str);
+		if (key == "Content-Length")
+		{
+			m_content_length = atol(str.c_str());
+		}
+	}
+}
+
+XNETSTRUCT::HTTP_CODE XHttp::parse_request_content(std::string &str)
+{
+	cout << "body:" << endl;
+	if (str.length() != m_content_length)
+	{
+		return NO_REQUEST;
+	}
+
+	string key, value, body;
+	int ret = 1;
+	while (ret)
+	{
+		ret = split(str, '&', body);
+		split(body, '=', key);
+		//cout << "key:" << key ;
+		//cout << " value:" << body << endl;
+		m_request.setAttribute(key, body);
+	}
+
+	return GET_REQUEST;
+}
+
+METHOD XHttp::Str2MetHod(string &str) const
+{
+	if (str == "GET")
+	{
+		return GET;
+	}
+	else if (str == "POST")
+	{
+		return POST;
+	}
+	else if (str == "HEAD")
+	{
+		return HEAD;
+	}
+	else if (str == "PUT")
+	{
+		return PUT;
+	}
+	else if (str == "DELETE")
+	{
+		return DELETE;
+	}
+	else if (str == "TRACE")
+	{
+		return TRACE;
+	}
+	else if (str == "OPTIONS")
+	{
+		return OPTIONS;
+	}
+	else if (str == "CONNECT")
+	{
+		return CONNECT;
+	}
+	else if (str == "PATCH")
+	{
+		return PATCH;
+	}
+	else
+	{
+		return NONE;
+	}
+}
+
+bool XHttp::path2servlet(string path)
+{
+	XServlet* _servlet = m_servlet[path];
+	if (_servlet  == nullptr)
+	{
+		return false;
+	}
+	if (m_request.getMethod() == GET)
+	{
+		_servlet->doGet(m_request, m_response);
+	}
+	else if (m_request.getMethod()  == POST)
+	{
+		_servlet->doPost(m_request, m_response);
+	}
+	else
+	{
+
+	}
+	return true;
+}
+
+bool XHttp::xml2map()
+{
+	string appPath(getcwd(NULL, 0));
+    string seperator = "/../src/XResourse/xml/web.xml";
+    string fullPath = appPath + seperator;
+    //cout << fullPath << endl;
+    //创建一个XML的文档对象。
+    TiXmlDocument *myDocument = new TiXmlDocument(fullPath.c_str());
+    myDocument->LoadFile();
+    //获得根元素，即Persons。
+    TiXmlElement *RootElement = myDocument->RootElement();
+    //输出根元素名称，即输出Persons。
+    //cout << RootElement->Value() << endl;
+
+    for(TiXmlElement *servlet_mapping = RootElement->FirstChildElement(); servlet_mapping->FirstChildElement(); servlet_mapping = servlet_mapping->NextSiblingElement())
+    {
+	    TiXmlElement *NameElement = servlet_mapping->FirstChildElement();
+	    TiXmlElement *urlElement = NameElement->NextSiblingElement();
+	    //cout << "Servlet Name:" << NameElement->FirstChild()->Value() << endl;
+	    //cout << "Url:" << urlElement->FirstChild()->Value() << endl;
+	    string objName(NameElement->FirstChild()->Value());
+	    string urlstr(urlElement->FirstChild()->Value());
+	    XServlet* obj = XServletFactory::getInstance(objName);
+	    m_servlet.insert(pair<string, XServlet*>(urlstr, obj));
+    };
+
+    myDocument->Clear();
+}
+
+void XHttp::sendResponse()
+{
+	if (m_response.isEmpty || m_response.getHttpCode() == NO_RESOURCE)
+	{
+		UTILS->modefd(m_msg.getEpollfd(), m_msg.getSocket(), EPOLLIN, 0);
+	}
+	if ()
+
+
+	UTILS->modefd(m_msg.getEpollfd(), m_msg.getSocket(), EPOLLIN, 0)
+}
+
+void XHttp::do_request(std::string &str)
+{
+	if (str == "")
+	std::regex html_reg(".+\.html");
+	bool ret = std::regex_match(str, html_reg);
+	string appPath(getcwd(NULL, 0));
+    string seperator = "/../src/XRoot";
+    string fullPath = appPath + seperator + str;
+    stat _file_stat
+	if (res)
+	{
+		if (stat(fullPath, &_file_stat) < 0)
+		{
+			m_response.setHttpCode(NO_RESOURCE);
+		}
+
+	    if (!(_file_stat.st_mode & S_IROTH))
+	    {
+	        m_response.setHttpCode(FORBIDDEN_REQUEST);
+	    }
+
+	    if (S_ISDIR(m_file_stat.st_mode))
+	    {
+	        m_response.setHttpCode(BAD_REQUEST);
+	    }
+
+
+	    int fd = open(fullPath, O_RDONLY);
+	    m_response.setFileAddress((char *)mmap(0, m_file_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0));
+	    close(fd);
+	    m_response.setHttpCode(FILE_REQUEST);
+	    m_response.setNotEmpty();
+	}
+}
