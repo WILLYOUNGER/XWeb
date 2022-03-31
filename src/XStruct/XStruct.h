@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 #include <functional>
-#include <iostream>
+#include "../XLog/XLog.h"
 
 namespace XNETSTRUCT {
 
@@ -48,8 +48,7 @@ public:
 		message = msg->message;
 		m_fd = msg->m_fd;
 		m_epollfd = msg->m_epollfd;
-		std::cout << "copy message epollfd: " << m_epollfd << std::endl;
-		std::cout << "copy message fd: " << m_fd << std::endl;
+		XLOG_DEBUG("now coy message:%s", message.c_str());
 	}
 
 	XMessage(char* _message, XSocket epollfd, XSocket _fd)
@@ -57,9 +56,7 @@ public:
 		message = _message;
 		m_epollfd = epollfd;
 		m_fd = _fd;
-		std::cout << "message epollfd: " << epollfd << std::endl;
-		std::cout << "message m_epollfd: " << m_epollfd << std::endl;
-		std::cout << "message fd: " << m_fd << std::endl;
+		XLOG_DEBUG("gen message:%s", _message);
 	}
 
 	std::string getContent() const

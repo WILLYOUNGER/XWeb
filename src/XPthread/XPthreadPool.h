@@ -53,7 +53,7 @@ XPthreadPool<T, E>::XPthreadPool(int thread_number, int max_requests)
 
 	for (int i = 0; i < m_thread_number; i++)
 	{
-		//XLog::getInstance()->write_log(0, "create the " , to_string(i).c_str(), " thread.");
+		XLOG_DEBUG("create the %d thread.", i);
 		if (pthread_create(m_threads + i, NULL, worker, this) != 0)
 		{
 			delete [] m_threads;

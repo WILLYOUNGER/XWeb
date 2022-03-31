@@ -2,13 +2,20 @@
 #define X_LOG_H
 
 #include <string>
-#include <iostream>
-#include <pthread.h>
+#include <cstdio>
 #include "../XUtils/XLock.h"
 #include "../XUtils/XBlockQueue.h"
 
 class XLog
 {
+public:
+	enum XLevel
+	{
+		DEBUG = 0,
+		INFO = 1,
+		WARN = 2,
+		ERROR = 3,
+	};
 public:
 	static XLog* getInstance()
 	{
@@ -23,7 +30,12 @@ public:
 
 	bool init(const char* file_name, int close_log, int level = 0, int log_buf_size = 8192, int split_lines = 5000000, int max_queue_size = 0);
 
-	void write_log(int level, const char *format ...);
+	void write_log(int level, const char *format, ...);
+
+	bool isOpen()
+	{
+		return m_close_log;
+	}
 
 	void flush(void);
 
@@ -40,7 +52,7 @@ private:
 			fputs(single_log.c_str(), m_fp);
 			if (m_close_log != 2)
    			{
-				std::cout << single_log << std::endl;
+   				printf("%s\n", single_log.c_str());
 			}
 			m_mutex.unlock();
 		}
@@ -60,5 +72,13 @@ private:
 	int m_close_log; 	//0:close 1:file and cmd 2: file 3: cmd
 	int m_level;
 };
+
+#define XLOG XLog::getInstance()
+
+#define XLOG_DEBUG(format, ...) if(XLOG->isOpen()) {XLOG->write_log(0, format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_INFO(format, ...) if(XLOG->isOpen()) {XLOG->write_log(1, format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_WARN(format, ...) if(XLOG->isOpen()) {XLOG->write_log(2, format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_ERROR(format, ...) if(XLOG->isOpen()) {XLOG->write_log(3, format, ##__VA_ARGS__); XLOG->flush();}
+
 
 #endif

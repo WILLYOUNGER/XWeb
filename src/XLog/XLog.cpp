@@ -1,10 +1,10 @@
 #include "XLog.h"
 #include <cstring>
 #include <cstdarg>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "sys/time.h"
-
-using namespace std;
-
 
 using namespace std;
 
@@ -48,6 +48,16 @@ bool XLog::init(const char* file_name, int close_log, int level, int log_buf_siz
 
     std::string file_full_name = std::string(m_dir_name) + "/" + to_string(my_tm.tm_year + 1900) + "_" + to_string(my_tm.tm_mon + 1) + "_" + to_string(my_tm.tm_mday) + std::string(m_file_name);
 
+    int ret = access(m_dir_name, F_OK);
+    if (!ret)
+    {
+        ret = mkdir(m_dir_name, S_IRWXU);
+        if (!ret)
+        {
+            return false;
+        }
+    }
+
     const char* file_full_name_c = file_full_name.c_str();
 
 	m_today = my_tm.tm_mday;
@@ -76,16 +86,16 @@ void XLog::write_log(int level, const char *format, ...)
     switch (level)
     {
     case 0:
-        strcpy(s, "[debug]:");
+        strcpy(s, "\033[1;32;40m[debug]:");
         break;
     case 1:
         strcpy(s, "[info]:");
         break;
     case 2:
-        strcpy(s, "[warn]:");
+        strcpy(s, "\033[1;33;40m[warn]:");
         break;
     case 3:
-        strcpy(s, "[erro]:");
+        strcpy(s, "\033[1;31;40m[erro]:");
         break;
     }
     //写入一个log，对m_count++, m_split_lines最大行数
@@ -123,12 +133,12 @@ void XLog::write_log(int level, const char *format, ...)
     int n = snprintf(m_buf, 48, "%d-%02d-%02d %02d:%02d:%02d.%06ld %s ",
                      my_tm.tm_year + 1900, my_tm.tm_mon + 1, my_tm.tm_mday,
                      my_tm.tm_hour, my_tm.tm_min, my_tm.tm_sec, now.tv_usec, s);
-
     int m = vsnprintf(m_buf + n, m_log_buf_sizes - 1, format, valst);
+    va_end(valst);
     m_buf[n + m] = '\n';
     m_buf[n + m + 1] = '\0';
-    log_str = m_buf;
-
+    log_str = string(m_buf, 0, n+m);
+    log_str +=  + "\033[0m";
     m_mutex.unlock();
 
     if (m_close_log != 3)
@@ -140,7 +150,7 @@ void XLog::write_log(int level, const char *format, ...)
         else
         {
             m_mutex.lock();
-            fputs(log_str.c_str(), m_fp);
+            int ret = fputs(log_str.c_str(), m_fp);
             m_mutex.unlock();
         }
     }
@@ -152,7 +162,7 @@ void XLog::write_log(int level, const char *format, ...)
         else
         {
             m_mutex.lock();
-            cout << log_str << endl;
+            printf("%s\n", log_str.c_str());
             m_mutex.unlock();
         }
     }

@@ -5,6 +5,7 @@
 #include "../XUserServlet/XServletDefine.h"
 #include "../XUtils/XUtils.h"
 #include "../XWebServer.h"
+#include "../XLog/XLog.h"
 
 #include <sys/epoll.h>
 #include <sys/stat.h>
@@ -37,8 +38,7 @@ void XHttp::init()
 void XHttp::process(XMsgPtr &msg)
 {
 	m_msg = msg;
-	cout << "msg: epollfd:" << msg->getEpollfd() << endl;
-	cout << "msg: fd: " << msg->getSocket() << endl;
+	XLOG_DEBUG("msg: epollfd:%d, msg: fd:,", msg->getEpollfd(), msg->getSocket());
 	m_read_now = 0;
 	m_line_begin = 0;
 	m_content_length == 0;
@@ -52,11 +52,11 @@ void XHttp::process(XMsgPtr &msg)
 	if (res == GET_REQUEST)
 	{
 		path2servlet(m_request.getPath());
-		cout << "deal request!" << endl;
+		XLOG_DEBUG("servlet deal request.");
 		if (m_response.isEmpty())
 		{
 			do_request(m_request.getPath());
-			cout << "auto deal request!" << endl;
+			XLOG_DEBUG("servlet deal is empty. now auto deal.");
 		}
 	}
 	else if (res == BAD_REQUEST)
@@ -173,7 +173,7 @@ HTTP_CODE XHttp::parse_request_line(string &str)
 	string res;
 	split(str, ' ', res);
 	m_method = Str2MetHod(res);
-	cout << "method:"<< m_method << endl;
+	XLOG_DEBUG("method:%d", m_method);
 	m_request.setMethod(m_method);
 	split(str, ' ', res);
 	if (res == "/")
@@ -181,10 +181,10 @@ HTTP_CODE XHttp::parse_request_line(string &str)
 		res += "index.html";
 	}
 	m_request.setPath(res);
-	cout << ":"<< res << endl;
+	XLOG_DEBUG("path:%s", res.c_str());
 	split(str, ' ', res);
 	m_request.setVersion(res);
-	cout << ":"<< res << endl;
+	XLOG_DEBUG("version:%s", res.c_str());
 	m_check_state = CHECK_STATE_HEADER;
 	return GET_REQUEST;
 }
@@ -204,8 +204,7 @@ HTTP_CODE XHttp::parse_request_header(string &str)
 	{
 		string key, value;
 		split(str, ':', key);
-		cout << "key:" << key ;
-		cout << " value:" << str << endl;
+		XLOG_DEBUG("key:%s, value:%s", key.c_str(), str.c_str());
 		m_request.setAttribute(key, str);
 		if (key == "Content-Length")
 		{
@@ -216,20 +215,18 @@ HTTP_CODE XHttp::parse_request_header(string &str)
 
 XNETSTRUCT::HTTP_CODE XHttp::parse_request_content(std::string &str)
 {
-	cout << "body:" << endl;
 	if (str.length() != m_content_length)
 	{
 		return NO_REQUEST;
 	}
 
-	string key, value, body;
+	string key, body;
 	int ret = 1;
 	while (ret)
 	{
 		ret = split(str, '&', body);
 		split(body, '=', key);
-		cout << "key:" << key ;
-		cout << " value:" << body << endl;
+		XLOG_DEBUG("body: key:%s, value:%s", key.c_str(), body.c_str());
 		m_request.setAttribute(key, body);
 	}
 
@@ -354,9 +351,7 @@ void XHttp::sendResponse()
 	{
 		XWebServer::m_reply[m_msg->getSocket()]->push_back(response);
 	}
-
-	cout << "notify baseNet write response!" << endl;
-	cout << response << endl;
+	XLOG_DEBUG("notify baseNet write response:%s", response.c_str());
 	UTILS->modfd(m_msg->getEpollfd(), m_msg->getSocket(), EPOLLOUT, 0);
 }
 

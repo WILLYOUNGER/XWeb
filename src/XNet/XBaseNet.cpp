@@ -9,11 +9,11 @@
 #include <unistd.h>		//close
 #include <stdlib.h>
 #include <assert.h>
-#include <iostream>
 #include <memory.h>
 #include <pthread.h>
 
 #include "../XUtils/XUtils.h"
+#include "../XLog/XLog.h"
 
 using namespace std;
 using namespace XNETBASE;
@@ -56,7 +56,7 @@ void XServer::beginListen()
 
 	m_epollfd = epoll_create(5);
 
-	cout << "epollfd: " << m_epollfd << endl;
+	XLOG_DEBUG("server epollfd:%d, port: %d", m_epollfd, m_port);
 
 	assert(m_epollfd != -1);
 	UTILS->setnonblocking(m_epollfd);
@@ -65,9 +65,6 @@ void XServer::beginListen()
 	UTILS->addsig(SIGPIPE, SIG_IGN);
 
 	assert(m_epollfd >= 0);
-	//cout << "server begin listen." << endl;
-	//cout << "server ip is: " << m_ip << endl;
-	//cout << "server port is: " << m_port << endl;
 
 	int reuse = 1;
 	setsockopt(m_sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
@@ -80,7 +77,6 @@ void XServer::sig_handler(int sig)
 {
 	int save_errno = errno;
 	int msg = sig;
-	//send(m_sig_pipefd[1], (char*) &msg, 1, 0);
 	errno = save_errno;
 }
 
@@ -93,25 +89,21 @@ void* XServer::loop(void* _this)
 
 void XServer::run()
 {
-	//cout << "server create success." << endl;
 	while (!m_stop)
 	{
 		epoll_event events[MAX_EVENT_NUMBER];
 		int ret = epoll_wait(m_epollfd, events, MAX_EVENT_NUMBER, -1);
-		//cout << "something heppen!" << endl;
 		for (int i = 0; i < ret; i++)
 		{
-			//cout << "some sockfd is activity!" << endl;
 			XSocket sockfd = events[i].data.fd;
 			if (sockfd == m_sockfd)
 			{
-				//cout << "a client try connect." << endl;
 				struct sockaddr_in client_address;
 				socklen_t client_addresslength = sizeof(client_address);
 				XSocket connfd = accept(m_sockfd, (struct sockaddr*) &client_address, &client_addresslength);
 				if (connfd < 0)
 				{
-					cout << "error:" << errno << endl;
+					XLOG_ERROR("error:%d", errno);
 				}
 				if (m_sockfd_num >= MAX_FD)
 				{
@@ -177,7 +169,6 @@ void XServer::run()
 					}
 					if (!_isError)
 					{
-						cout << "::::" << m_epollfd << "::::" << sockfd << endl;
 						auto mes = make_shared<XMessage>(new XMessage(_read_buf, m_epollfd, sockfd));
 						m_readCb(mes);
 					}
@@ -265,7 +256,7 @@ void XClient::run()
 			int number = epoll_wait(m_epollfd, events, MAX_EVENT_NUMBER, -1);
 			if (number < 0 && errno != EINTR)
 			{
-				cout << "epoll failure" << endl;
+				XLOG_ERROR("epoll failure");
 				break;
 			}
 			for (int i = 0; i < number; i++)
@@ -316,7 +307,7 @@ void XClient::run()
 					}
 					else
 					{
-						cout << "client's readCallback is null." << endl;
+						XLOG_ERROR("client's readCallback is null.");
 					}
 				}
 				else if (events[i].events & EPOLLIN)
@@ -327,7 +318,7 @@ void XClient::run()
 					}
 					else
 					{
-						cout << "client's wirteCallback is null." << endl;
+						XLOG_ERROR("client's wirteCallback is null.");
 					}
 				}
 			}
@@ -346,7 +337,7 @@ void XClient::run()
 				else
 				{
 					close(m_sockfd);
-					cout << "client's connectCallback is null." << endl;
+					XLOG_ERROR("client's connectCallback is null.");
 				}
 			}
 		}

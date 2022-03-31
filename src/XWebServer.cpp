@@ -1,6 +1,6 @@
 #include "XWebServer.h"
 #include "./XUtils/XUtils.h"
-#include <iostream>
+#include "./XLog/XLog.h"
 #include <sys/epoll.h>
 
 using namespace std;
@@ -32,29 +32,26 @@ XWebServer::XWebServer()
 
 void XWebServer::ConnectCallback(XSocket socket)
 {
-    cout << "a client connected." << endl;
-    cout << "connfd: " << socket << endl;
+    XLOG->write_log(XLog::DEBUG, "a client connected.connfd: ", to_string(socket).c_str());
 }
 
 void XWebServer::CloseCallback(void)
 {
-    cout << "a client stopConnect." << endl;
+    XLOG->write_log(XLog::DEBUG, "a client stopConnect.");
 }
 
 void XWebServer::ReadCallback(XMsgPtr msg)
 {
-    cout << "recv:"<< endl << msg->getContent() << endl;
     pool->append(msg);
-    cout << "read epollfd: " << msg->getEpollfd() << endl;
-    cout << "read fd: " << msg->getSocket() << endl;
+    XLOG->write_log(XLog::DEBUG, "recv a request.");
 }
 
 void XWebServer::WriteCallback(XSocket epollfd, XSocket socket)
 {
-    cout << "sending message!" << endl;
     if (XWebServer::m_reply.count(socket) == 0)
     {
         UTILS->modfd(epollfd, socket, EPOLLIN, 0);
+        XLOG->write_log(XLog::DEBUG, "not find need send message.");
         return;
     }
     else
@@ -62,6 +59,6 @@ void XWebServer::WriteCallback(XSocket epollfd, XSocket socket)
         send(socket, XWebServer::m_reply[socket]->front().c_str(), XWebServer::m_reply[socket]->front().length(), 0);
         XWebServer::m_reply[socket]->pop_front();
         UTILS->modfd(epollfd, socket, EPOLLIN, 0);
-        cout << "sending message success!" << endl;
+        XLOG->write_log(XLog::DEBUG, "send message success.");
     }
 }
