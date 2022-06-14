@@ -35,7 +35,7 @@ bool XLog::init(const char* file_name, int close_log, int level, int log_buf_siz
 	if (max_queue_size > 0)
 	{
 		m_is_async = true;
-		m_log_queue = new XBlockQueue<std::string>(max_queue_size);
+		m_log_queue = new XBlockQueue<XLOGCONTENT>(max_queue_size);
 		pthread_t pid;
 		pthread_create(&pid, NULL, flush_log_thread, NULL);
 	}
@@ -82,22 +82,29 @@ void XLog::write_log(int level, const char *format, ...)
     time_t t = now.tv_sec;
     struct tm *sys_tm = localtime(&t);
     struct tm my_tm = *sys_tm;
+    XLOGCONTENT _logContent_content;
     char s[16] = {0};
     switch (level)
     {
     case 0:
-        strcpy(s, "\033[1;32;40m[debug]:");
+        strcpy(s, "\033[1;32;40m");
+        _logContent_content._str_logContent = "[debug]:";
         break;
     case 1:
-        strcpy(s, "[info]:");
+        strcpy(s, "\033[1;34;40m");
+        _logContent_content._str_logContent = "[info]:";
         break;
     case 2:
-        strcpy(s, "\033[1;33;40m[warn]:");
+        strcpy(s, "\033[1;33;40m");
+        _logContent_content._str_logContent = "[warn]:";
         break;
     case 3:
-        strcpy(s, "\033[1;31;40m[erro]:");
+        strcpy(s, "\033[1;31;40m");
+        _logContent_content._str_logContent = "[error]:";
         break;
     }
+    _logContent_content._str_beginColor = s;
+
     //写入一个log，对m_count++, m_split_lines最大行数
     m_mutex.lock();
     m_count++;
@@ -126,32 +133,37 @@ void XLog::write_log(int level, const char *format, ...)
     va_list valst;
     va_start(valst, format);
 
-    std::string log_str;
     m_mutex.lock();
 
+    char _c_buffer_ptr[48] = {0};
+
     //写入的具体时间内容格式
-    int n = snprintf(m_buf, 48, "%d-%02d-%02d %02d:%02d:%02d.%06ld %s ",
+    int n = snprintf(_c_buffer_ptr, 48, "%d-%02d-%02d %02d:%02d:%02d.%06ld  ",
                      my_tm.tm_year + 1900, my_tm.tm_mon + 1, my_tm.tm_mday,
-                     my_tm.tm_hour, my_tm.tm_min, my_tm.tm_sec, now.tv_usec, s);
-    int m = vsnprintf(m_buf + n, m_log_buf_sizes - 1, format, valst);
+                     my_tm.tm_hour, my_tm.tm_min, my_tm.tm_sec, now.tv_usec);
+    _logContent_content._str_time = string(_c_buffer_ptr, 0, n);
+
+    int m = vsnprintf(m_buf, m_log_buf_sizes - 1, format, valst);
     va_end(valst);
-    m_buf[n + m] = '\n';
-    m_buf[n + m + 1] = '\0';
-    log_str = string(m_buf, 0, n+m + 1);
-    log_str +=  + "\033[0m";
+    m_buf[m] = '\n';
+    m_buf[m + 1] = '\0';
+    _logContent_content._str_logContent += string(m_buf, 0, m + 1);
+
+    _logContent_content._str_endColor = "\033[0m";
+
     m_mutex.unlock();
 
     if (m_close_log != 3)
     {
         if (m_is_async && !m_log_queue->full())
         {
-            m_log_queue->push(log_str);
+            m_log_queue->push(_logContent_content);
         }
         else
         {
             m_mutex.lock();
-            int ret = fputs(log_str.c_str(), m_fp);
-            m_mutex.unlock();
+			fputs((_logContent_content._str_time + _logContent_content._str_logContent).c_str(), m_fp);
+			m_mutex.unlock();
         }
     }
     if (m_close_log != 2)
@@ -162,7 +174,8 @@ void XLog::write_log(int level, const char *format, ...)
         else
         {
             m_mutex.lock();
-            printf("%s\n", log_str.c_str());
+            std::string _str_logWithColor = _logContent_content._str_time + _logContent_content._str_beginColor + _logContent_content._str_logContent + _logContent_content._str_endColor;
+   			printf("%s", _str_logWithColor.c_str());
             m_mutex.unlock();
         }
     }

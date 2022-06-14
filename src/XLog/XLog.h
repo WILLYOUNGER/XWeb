@@ -6,6 +6,14 @@
 #include "../XUtils/XLock.h"
 #include "../XUtils/XBlockQueue.h"
 
+typedef struct XLOGCONTENT
+{
+	std::string _str_time;
+	std::string _str_beginColor;
+	std::string _str_logContent;
+	std::string _str_endColor;
+} XLOGCONTENT;
+
 class XLog
 {
 public:
@@ -57,14 +65,15 @@ private:
 
 	void *async_write_log()
 	{
-		std::string single_log;
+		XLOGCONTENT single_log;
 		while (m_log_queue->pop(single_log))
 		{
 			m_mutex.lock();
-			fputs(single_log.c_str(), m_fp);
+			fputs((single_log._str_time + single_log._str_logContent).c_str(), m_fp);
 			if (m_close_log != 2)
    			{
-   				printf("%s\n", single_log.c_str());
+				std::string _str_logWithColor = single_log._str_time + single_log._str_beginColor + single_log._str_logContent + single_log._str_endColor;
+   				printf("%s", _str_logWithColor.c_str());
 			}
 			m_mutex.unlock();
 		}
@@ -78,7 +87,7 @@ private:
 	int m_today;
 	FILE* m_fp;
 	char* m_buf;
-	XBlockQueue<std::string> *m_log_queue;
+	XBlockQueue<XLOGCONTENT> *m_log_queue;
 	bool m_is_async;
 	locker m_mutex;
 	int m_close_log; 	//0:close 1:file and cmd 2: file 3: cmd

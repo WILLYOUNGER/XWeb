@@ -22,7 +22,6 @@
  /mnt/d/X/XWeb/src/XStruct/XHttpStruct.h
 ../bin/CMakeFiles/test.dir/XLog/XLog.cpp.o
  /mnt/d/X/XWeb/src/XLog/XLog.cpp
- /mnt/d/X/XWeb/src/XLog/XLog.h
 ../bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o
  /mnt/d/X/XWeb/src/XLog/XLog.h
  /mnt/d/X/XWeb/src/XNet/XBaseNet.cpp
@@ -67,13 +66,4 @@
  /mnt/d/X/XWeb/src/Xml/tinyxml.h
  /mnt/d/X/XWeb/src/Xml/tinyxmlparser.cpp
 ../bin/CMakeFiles/test.dir/test.cpp.o
- /mnt/d/X/XWeb/src/XHTTP/XHttp.h
- /mnt/d/X/XWeb/src/XHTTP/XServlet.h
- /mnt/d/X/XWeb/src/XLog/XLog.h
- /mnt/d/X/XWeb/src/XNet/XBaseNet.h
- /mnt/d/X/XWeb/src/XPthread/XPthreadPool.h
- /mnt/d/X/XWeb/src/XStruct/XHttpStruct.h
- /mnt/d/X/XWeb/src/XStruct/XStruct.h
- /mnt/d/X/XWeb/src/XUtils/XLock.h
- /mnt/d/X/XWeb/src/XWebServer.h
  /mnt/d/X/XWeb/src/test.cpp

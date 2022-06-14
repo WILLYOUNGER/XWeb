@@ -15,6 +15,11 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
+	XLOG_DEBUG("debug");
+	XLOG_INFO("info");
+	XLOG_WARN("warn");
+	XLOG_ERROR("error");
+
 	XWebServer server;
 	while (true)
 	{

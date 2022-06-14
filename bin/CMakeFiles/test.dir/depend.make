@@ -21,7 +21,6 @@
 ../bin/CMakeFiles/test.dir/XHTTP/XServlet.cpp.o: ../src/XStruct/XHttpStruct.h
 
 ../bin/CMakeFiles/test.dir/XLog/XLog.cpp.o: ../src/XLog/XLog.cpp
-../bin/CMakeFiles/test.dir/XLog/XLog.cpp.o: ../src/XLog/XLog.h
 
 ../bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o: ../src/XLog/XLog.h
 ../bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o: ../src/XNet/XBaseNet.cpp
@@ -66,14 +65,5 @@
 ../bin/CMakeFiles/test.dir/Xml/tinyxmlparser.cpp.o: ../src/Xml/tinyxml.h
 ../bin/CMakeFiles/test.dir/Xml/tinyxmlparser.cpp.o: ../src/Xml/tinyxmlparser.cpp
 
-../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XHTTP/XHttp.h
-../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XHTTP/XServlet.h
-../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XLog/XLog.h
-../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XNet/XBaseNet.h
-../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XPthread/XPthreadPool.h
-../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XStruct/XHttpStruct.h
-../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XStruct/XStruct.h
-../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XUtils/XLock.h
-../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XWebServer.h
 ../bin/CMakeFiles/test.dir/test.cpp.o: ../src/test.cpp
 
