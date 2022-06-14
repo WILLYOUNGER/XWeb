@@ -4,20 +4,20 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/XHTTP/XHttp.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/XHTTP/XHttp.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/XHTTP/XServlet.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/XHTTP/XServlet.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/XLog/XLog.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/XLog/XLog.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/XNet/XBaseNet.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/XPthread/XPthreadPool.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/XPthread/XPthreadPool.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/XStruct/XStruct.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/XStruct/XStruct.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/XUserServlet/XTestServlet.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/XUserServlet/XTestServlet.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/XUtils/XUtils.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/XUtils/XUtils.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/XWebServer.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/XWebServer.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/Xml/tinystr.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/Xml/tinystr.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/Xml/tinyxml.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/Xml/tinyxml.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/Xml/tinyxmlerror.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/Xml/tinyxmlerror.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/Xml/tinyxmlparser.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/Xml/tinyxmlparser.cpp.o"
-  "/home/will/Documents/my/Linux/linuxSever/XWeb/src/test.cpp" "/home/will/Documents/my/Linux/linuxSever/XWeb/bin/CMakeFiles/test.dir/test.cpp.o"
+  "/mnt/d/X/XWeb/src/XHTTP/XHttp.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/XHTTP/XHttp.cpp.o"
+  "/mnt/d/X/XWeb/src/XHTTP/XServlet.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/XHTTP/XServlet.cpp.o"
+  "/mnt/d/X/XWeb/src/XLog/XLog.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/XLog/XLog.cpp.o"
+  "/mnt/d/X/XWeb/src/XNet/XBaseNet.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o"
+  "/mnt/d/X/XWeb/src/XPthread/XPthreadPool.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/XPthread/XPthreadPool.cpp.o"
+  "/mnt/d/X/XWeb/src/XStruct/XStruct.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/XStruct/XStruct.cpp.o"
+  "/mnt/d/X/XWeb/src/XUserServlet/XTestServlet.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/XUserServlet/XTestServlet.cpp.o"
+  "/mnt/d/X/XWeb/src/XUtils/XUtils.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/XUtils/XUtils.cpp.o"
+  "/mnt/d/X/XWeb/src/XWebServer.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/XWebServer.cpp.o"
+  "/mnt/d/X/XWeb/src/Xml/tinystr.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/Xml/tinystr.cpp.o"
+  "/mnt/d/X/XWeb/src/Xml/tinyxml.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/Xml/tinyxml.cpp.o"
+  "/mnt/d/X/XWeb/src/Xml/tinyxmlerror.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/Xml/tinyxmlerror.cpp.o"
+  "/mnt/d/X/XWeb/src/Xml/tinyxmlparser.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/Xml/tinyxmlparser.cpp.o"
+  "/mnt/d/X/XWeb/src/test.cpp" "/mnt/d/X/XWeb/bin/CMakeFiles/test.dir/test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/will/Documents/my/Linux/linuxSever/XWeb/src
+# Install script for directory: /mnt/d/X/XWeb/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -22,6 +22,8 @@ public:
 	void addsig(int sig, void (handler)(int), bool restart = true );
 
 	void senderror(XNETSTRUCT::XSocket connfd, const char* info);
+	//set close socket now !!!
+	void setFdCloseNow(XNETSTRUCT::XSocket connfd, int isCloseNow, int time);
 private:
 	Utils();
 

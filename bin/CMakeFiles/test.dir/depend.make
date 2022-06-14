@@ -10,7 +10,6 @@
 ../bin/CMakeFiles/test.dir/XHTTP/XHttp.cpp.o: ../src/XStruct/XHttpStruct.h
 ../bin/CMakeFiles/test.dir/XHTTP/XHttp.cpp.o: ../src/XStruct/XStruct.h
 ../bin/CMakeFiles/test.dir/XHTTP/XHttp.cpp.o: ../src/XUserServlet/XServletDefine.h
-../bin/CMakeFiles/test.dir/XHTTP/XHttp.cpp.o: ../src/XUtils/XBlockQueue.h
 ../bin/CMakeFiles/test.dir/XHTTP/XHttp.cpp.o: ../src/XUtils/XLock.h
 ../bin/CMakeFiles/test.dir/XHTTP/XHttp.cpp.o: ../src/XUtils/XUtils.h
 ../bin/CMakeFiles/test.dir/XHTTP/XHttp.cpp.o: ../src/XWebServer.h
@@ -23,16 +22,21 @@
 
 ../bin/CMakeFiles/test.dir/XLog/XLog.cpp.o: ../src/XLog/XLog.cpp
 ../bin/CMakeFiles/test.dir/XLog/XLog.cpp.o: ../src/XLog/XLog.h
-../bin/CMakeFiles/test.dir/XLog/XLog.cpp.o: ../src/XUtils/XBlockQueue.h
-../bin/CMakeFiles/test.dir/XLog/XLog.cpp.o: ../src/XUtils/XLock.h
 
+../bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o: ../src/XLog/XLog.h
+../bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o: ../src/XNet/XBaseNet.cpp
+../bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o: ../src/XNet/XBaseNet.h
+../bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o: ../src/XStruct/XStruct.h
+../bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o: ../src/XUtils/XUtils.h
 
 ../bin/CMakeFiles/test.dir/XPthread/XPthreadPool.cpp.o: ../src/XLog/XLog.h
 ../bin/CMakeFiles/test.dir/XPthread/XPthreadPool.cpp.o: ../src/XPthread/XPthreadPool.cpp
 ../bin/CMakeFiles/test.dir/XPthread/XPthreadPool.cpp.o: ../src/XPthread/XPthreadPool.h
-../bin/CMakeFiles/test.dir/XPthread/XPthreadPool.cpp.o: ../src/XUtils/XBlockQueue.h
 ../bin/CMakeFiles/test.dir/XPthread/XPthreadPool.cpp.o: ../src/XUtils/XLock.h
 
+../bin/CMakeFiles/test.dir/XStruct/XStruct.cpp.o: ../src/XLog/XLog.h
+../bin/CMakeFiles/test.dir/XStruct/XStruct.cpp.o: ../src/XStruct/XStruct.cpp
+../bin/CMakeFiles/test.dir/XStruct/XStruct.cpp.o: ../src/XStruct/XStruct.h
 
 ../bin/CMakeFiles/test.dir/XUserServlet/XTestServlet.cpp.o: ../src/XHTTP/XServlet.h
 ../bin/CMakeFiles/test.dir/XUserServlet/XTestServlet.cpp.o: ../src/XStruct/XHttpStruct.h
@@ -40,19 +44,12 @@
 ../bin/CMakeFiles/test.dir/XUserServlet/XTestServlet.cpp.o: ../src/XUserServlet/XTestServlet.cpp
 ../bin/CMakeFiles/test.dir/XUserServlet/XTestServlet.cpp.o: ../src/XUserServlet/XTestServlet.h
 
+../bin/CMakeFiles/test.dir/XUtils/XUtils.cpp.o: ../src/XLog/XLog.h
+../bin/CMakeFiles/test.dir/XUtils/XUtils.cpp.o: ../src/XStruct/XStruct.h
+../bin/CMakeFiles/test.dir/XUtils/XUtils.cpp.o: ../src/XUtils/XUtils.cpp
+../bin/CMakeFiles/test.dir/XUtils/XUtils.cpp.o: ../src/XUtils/XUtils.h
 
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XHTTP/XHttp.h
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XHTTP/XServlet.h
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XLog/XLog.h
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XNet/XBaseNet.h
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XPthread/XPthreadPool.h
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XStruct/XHttpStruct.h
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XStruct/XStruct.h
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XUtils/XBlockQueue.h
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XUtils/XLock.h
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XUtils/XUtils.h
 ../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XWebServer.cpp
-../bin/CMakeFiles/test.dir/XWebServer.cpp.o: ../src/XWebServer.h
 
 ../bin/CMakeFiles/test.dir/Xml/tinystr.cpp.o: ../src/Xml/tinystr.cpp
 ../bin/CMakeFiles/test.dir/Xml/tinystr.cpp.o: ../src/Xml/tinystr.h
@@ -76,7 +73,6 @@
 ../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XPthread/XPthreadPool.h
 ../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XStruct/XHttpStruct.h
 ../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XStruct/XStruct.h
-../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XUtils/XBlockQueue.h
 ../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XUtils/XLock.h
 ../bin/CMakeFiles/test.dir/test.cpp.o: ../src/XWebServer.h
 ../bin/CMakeFiles/test.dir/test.cpp.o: ../src/test.cpp

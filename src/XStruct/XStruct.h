@@ -10,7 +10,7 @@ namespace XNETSTRUCT {
 
 static const int MAX_EVENT_NUMBER = 10000;
 
-static const int MAX_FD = 65535;
+static const int MAX_FD = 1655350;
 
 static const int READ_BUFFER_SIZE = 2048;
 
@@ -48,7 +48,7 @@ public:
 		message = msg->message;
 		m_fd = msg->m_fd;
 		m_epollfd = msg->m_epollfd;
-		XLOG_DEBUG("now coy message:%s", message.c_str());
+		XLOG_DEBUG("now copy message:%s", message.c_str());
 	}
 
 	XMessage(char* _message, XSocket epollfd, XSocket _fd)

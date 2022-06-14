@@ -3,6 +3,8 @@
 
 #include <map>
 #include <string>
+#include <unistd.h>
+#include <sys/mman.h>
 
 namespace XNETSTRUCT {
 typedef enum _method {
@@ -25,6 +27,10 @@ typedef enum _http_code {
 	NO_RESOURCE,
 	FORBIDDEN_REQUEST,
 	FILE_REQUEST,
+	CSS_REQUEST,
+	ICO_REQUEST,
+	JPG_REQUEST,
+	GIF_REQUEST,
 	INTERNAL_ERROR,
 	CLOSED_CONNECTION
 } HTTP_CODE;
@@ -86,6 +92,12 @@ public:
 		clear();
 	}
 
+	~XResponse()
+	{
+		munmap(m_file_address, m_content_length);
+        m_file_address = 0;
+	}
+
 	void setHttpCode(HTTP_CODE code) {m_http_code = code;}
 
 	HTTP_CODE getHttpCode() {return m_http_code;}
@@ -95,7 +107,6 @@ public:
 		m_http_code = NO_RESOURCE;
 		m_isEmpty = true;
 		m_content_length = 0;
-		m_head = nullptr;
 	}
 
 	void setNotEmpty()
@@ -128,12 +139,12 @@ public:
 		return m_content_length;
 	}
 
-	void setHeadAddress(const char* _head)
+	void setHeadString(std::string _head)
 	{
 		m_head = _head;
 	}
 
-	const char* getHeadAddress()
+	std::string getHeadString()
 	{
 		return m_head;
 	}
@@ -146,7 +157,7 @@ private:
 
 	int m_content_length;
 
-	const char* m_head;
+	std::string m_head;
 };
 
 }

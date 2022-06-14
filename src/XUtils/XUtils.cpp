@@ -99,8 +99,14 @@ void Utils::addsig(int sig, void (handler)(int), bool restart)
 
 void Utils::senderror(XSocket connfd, const char* info)
 {
-	XLOG_ERROR(info);
+	XLOG_ERROR("%s", info);
 	send(connfd, info, strlen(info), 0);
 	close(connfd);
+}
+
+void Utils::setFdCloseNow(XNETSTRUCT::XSocket fd, int isCloseNow, int time)
+{
+	struct linger tmp = {isCloseNow, time};
+        setsockopt(fd, SOL_SOCKET, SO_LINGER, &tmp, sizeof(tmp));
 }
 

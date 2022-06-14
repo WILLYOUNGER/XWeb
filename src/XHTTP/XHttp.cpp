@@ -339,19 +339,19 @@ void XHttp::sendResponse()
 
 	dealresponse(_httpStr);
 
-	string response = string(_httpStr) + string(m_response.getFileAddress());
+	//string response = string(_httpStr) + string(m_response.getFileAddress());
 
 	if (XWebServer::m_reply.count(m_msg->getSocket()) == 0)
 	{
-		list<string> *replyList = new list<string>();
-		replyList->push_back(response);
+		list<XResponse> *replyList = new list<XResponse>();
+		replyList->push_back(m_response);
 		XWebServer::m_reply[m_msg->getSocket()] = replyList;
 	}
 	else
 	{
-		XWebServer::m_reply[m_msg->getSocket()]->push_back(response);
+		XWebServer::m_reply[m_msg->getSocket()]->push_back(m_response);
 	}
-	XLOG_DEBUG("notify baseNet write response:%s", response.c_str());
+	//XLOG_DEBUG("notify baseNet write response:%s", response.c_str());
 	UTILS->modfd(m_msg->getEpollfd(), m_msg->getSocket(), EPOLLOUT, 0);
 }
 
@@ -370,7 +370,7 @@ void XHttp::dealresponse(std::string &str)
 	{
 		str = str + "HTTP/1.1 200 OK\r\n";
 		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
-		str = str + "Connection: close\r\n";
+		str = str + "Connection:close\r\n";
 		str = str + "\r\n";
 	}
 	else if (_code == INTERNAL_ERROR)
@@ -381,18 +381,70 @@ void XHttp::dealresponse(std::string &str)
 	{
 
 	}
-	m_response.setHeadAddress(str.c_str());
+	else if (_code == ICO_REQUEST)
+	{
+		str = str + "HTTP/1.1 200 OK\r\n";
+		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
+		str = str + "Connection:Keep-Alive\r\n";
+		str = str + "Content-Type:image/x-icon\r\n";
+		str = str + "\r\n";
+	}
+	else if (_code == JPG_REQUEST)
+	{
+		str = str + "HTTP/1.1 200 OK\r\n";
+		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
+		str = str + "Connection:Keep-Alive\r\n";
+		str = str + "Content-Type:image/x-icon\r\n";
+		str = str + "\r\n";
+	}
+	else if (_code == GIF_REQUEST)
+	{
+		str = str + "HTTP/1.1 200 OK\r\n";
+		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
+		str = str + "Connection:Keep-Alive\r\n";
+		str = str + "Content-Type:image/gif\r\n";
+		str = str + "\r\n";
+	}
+	m_response.setHeadString(str);
 }
 
 void XHttp::do_request(string str)
 {
-	std::regex html_reg(".+\\.html");
-	bool ret = std::regex_match(str, html_reg);
 	string appPath(getcwd(NULL, 0));
     string seperator = "/../src/XRoot";
     string fullPath = appPath + seperator + str;
     struct stat _file_stat;
+	int _type = 0;
+	std::regex html_reg(".+\\..+");
+	bool ret = std::regex_match(str, html_reg);
 	if (ret)
+	{
+		_type = -1;
+	}
+	// if (!ret)
+	// {
+	// 	std::regex ico_reg(".+\\.ico");
+	// 	ret = std::regex_match(str, ico_reg);
+	// 	_type = 1;
+	// }
+	// else
+	// {
+	// 	_type = -1;
+	// }
+	// if (!ret)
+	// {
+	// 	std::regex jpg_reg(".+\\.jpg");
+	// 	ret = std::regex_match(str, jpg_reg);
+	// 	_type = 2;
+	// }
+	// if (!ret)
+	// {
+	// 	std::regex gif_reg(".+\\.gif");
+	// 	ret = std::regex_match(str, gif_reg);
+	// 	_type = 3;
+	// }
+
+	if (_type != 0)
 	{
 		if (stat(fullPath.c_str(), &_file_stat) < 0)
 		{
@@ -411,10 +463,32 @@ void XHttp::do_request(string str)
 
 
 	    int fd = open(fullPath.c_str(), O_RDONLY);
-	    m_response.setFileAddress((char *)mmap(0, _file_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0));
 	    m_response.setContentLength(_file_stat.st_size);
+	    if (_type == -1)
+	    {
+	    	m_response.setHttpCode(FILE_REQUEST);
+	    	char* _tmp = (char *)mmap(0, _file_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+	    	m_response.setFileAddress(_tmp);
+	    }
+	    else if (_type == 1)
+	    {
+	    	m_response.setHttpCode(ICO_REQUEST);
+	    	char* _tmp = (char *)mmap(0, _file_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+	    	m_response.setFileAddress(_tmp);
+	    }
+	    else if (_type == 2)
+	    {
+	    	m_response.setHttpCode(JPG_REQUEST);
+	    	char* _tmp = (char *)mmap(0, _file_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+	    	m_response.setFileAddress(_tmp);
+	    }
+	    else if (_type == 3)
+	    {
+	    	m_response.setHttpCode(GIF_REQUEST);
+	    	char* _tmp = (char *)mmap(0, _file_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+	    	m_response.setFileAddress(_tmp);
+	    }
 	    close(fd);
-	    m_response.setHttpCode(FILE_REQUEST);
 	    m_response.setNotEmpty();
 	}
 }

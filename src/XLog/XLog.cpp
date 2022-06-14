@@ -137,7 +137,7 @@ void XLog::write_log(int level, const char *format, ...)
     va_end(valst);
     m_buf[n + m] = '\n';
     m_buf[n + m + 1] = '\0';
-    log_str = string(m_buf, 0, n+m);
+    log_str = string(m_buf, 0, n+m + 1);
     log_str +=  + "\033[0m";
     m_mutex.unlock();
 

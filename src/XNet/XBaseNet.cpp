@@ -48,6 +48,8 @@ void XServer::beginListen()
 	m_sockfd = socket(PF_INET, SOCK_STREAM, 0);
 	assert(m_sockfd >= 0);
 
+	UTILS->setFdCloseNow(m_sockfd, 1, 0);
+
 	int ret = bind(m_sockfd, (struct sockaddr*) &address, sizeof(address) );
 	assert(ret != -1);
 

@@ -28,6 +28,18 @@ public:
 		return XLog::getInstance()->async_write_log();
 	}
 
+	/**
+	 * @brief 初始化日志类
+	 * 
+	 * @param file_name 文件全称 如："XWebLog.txt"
+	 * @param close_log 开启状态：0:close 1:file and cmd 2: file 3: cmd
+	 * @param level 	打印大于这个等级的日志 0：debug 1：info 2：warn 3：error
+	 * @param log_buf_size 每行日志最大长度
+	 * @param split_lines  每个文件最大行数，超出会自动创建新文件
+	 * @param max_queue_size 如果大于0为异步日志，输入为队列长度，否则为同步日志
+	 * @return true 
+	 * @return false 失败，这里可以检查一下./log文件夹有没有创建
+	 */
 	bool init(const char* file_name, int close_log, int level = 0, int log_buf_size = 8192, int split_lines = 5000000, int max_queue_size = 0);
 
 	void write_log(int level, const char *format, ...);

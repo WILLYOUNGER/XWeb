@@ -2,11 +2,11 @@
 <?xml version="1.0" encoding="UTF-8">
 <Xservlet>
 	<Xservlet-mapping>
-	    <Xservlet-name>LoginServlet</Xservlet-name>
+	    <Xservlet-name>XTestServlet</Xservlet-name>
 	    <Xurl-pattern>/login</Xurl-pattern>
 	</Xservlet-mapping>
 	<Xservlet-mapping>
-	    <Xservlet-name>ResgiterServlet</Xservlet-name>
+	    <Xservlet-name>XTestServlet</Xservlet-name>
 	    <Xurl-pattern>/resgiter</Xurl-pattern>
 	</Xservlet-mapping>
 	<Xservlet-mapping>

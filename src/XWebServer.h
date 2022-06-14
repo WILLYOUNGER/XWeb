@@ -6,6 +6,7 @@
 #include "./XPthread/XPthreadPool.h"
 #include "./XHTTP/XHttp.h"
 
+using namespace XNETSTRUCT;
 class XWebServer
 {
 public:
@@ -23,7 +24,7 @@ private:
 
 	XPthreadPool<XNETSTRUCT::XMsgPtr, XHttp>* pool;
 public:
-	static std::map<XNETSTRUCT::XSocket, std::list<std::string>*> m_reply;
+	static std::map<XNETSTRUCT::XSocket, std::list<XResponse>*> m_reply;
 };
 
 #endif
