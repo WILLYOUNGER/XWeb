@@ -8,7 +8,7 @@ target_link_libraries(test pthread)
 target_include_directories(test PUBLIC "${PROJECT_BINARY_DIR}")
 
 target_include_directories(test PUBLIC ./XHTTP)
-target_include_directories(test PUBLIC ./XLOG)
+target_include_directories(test PUBLIC ./XLog)
 target_include_directories(test PUBLIC ./Xml)
 target_include_directories(test PUBLIC ./XNet)
 target_include_directories(test PUBLIC ./XPthread)
