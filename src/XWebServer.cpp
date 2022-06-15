@@ -36,18 +36,18 @@ XWebServer::XWebServer()
 
 void XWebServer::ConnectCallback(XSocket socket)
 {
-    XLOG->write_log(XLog::DEBUG, "a client connected.connfd: ", to_string(socket).c_str());
+    XLOG_DEBUG("a client connected.connfd: ", to_string(socket).c_str());
 }
 
 void XWebServer::CloseCallback(void)
 {
-    XLOG->write_log(XLog::DEBUG, "a client stopConnect.");
+    XLOG_DEBUG("a client stopConnect.");
 }
 
 void XWebServer::ReadCallback(XMsgPtr msg)
 {
     pool->append(msg);
-    XLOG->write_log(XLog::DEBUG, "recv a request.");
+    XLOG_DEBUG("recv a request.");
 }
 
 void XWebServer::WriteCallback(XSocket epollfd, XSocket socket)
@@ -55,7 +55,7 @@ void XWebServer::WriteCallback(XSocket epollfd, XSocket socket)
     if (XWebServer::m_reply.count(socket) == 0)
     {
         UTILS->modfd(epollfd, socket, EPOLLIN, 0);
-        XLOG->write_log(XLog::DEBUG, "not find need send message.");
+        XLOG_DEBUG("not find need send message.");
         return;
     }
     else
@@ -76,11 +76,9 @@ void XWebServer::WriteCallback(XSocket epollfd, XSocket socket)
             int bytes_to_send = _iv[0].iov_len + _iv[1].iov_len;
             int bytes_have_send = 0;
 
-            _head[temp.getHeadString().size()] = '\n';
+            _head[temp.getHeadString().size()] = '\0';
             XLOG_INFO(_head);
 
-            // while (1)
-            // {
             int temp = writev(socket, _iv, _iv_count);
             //XLOG_DEBUG("length:%d", temp);
             //     if (temp < 0)
@@ -112,12 +110,13 @@ void XWebServer::WriteCallback(XSocket epollfd, XSocket socket)
             //     }
             // }
             XWebServer::m_reply[socket]->pop_front();
-            UTILS->modfd(epollfd, socket, EPOLLIN, 0);
+            UTILS->modfd(epollfd, socket, EPOLLOUT, 0);
             XLOG_DEBUG("send message success.");
         }
         else
         {
             XLOG_DEBUG("Response is null");
+            close(socket);
         }
     }
 }

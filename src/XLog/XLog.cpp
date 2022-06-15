@@ -89,19 +89,19 @@ void XLog::write_log(int level, string pos, const char *format, ...)
     {
     case 0:
         strcpy(s, "\033[1;32;40m");
-        _logContent_content._str_logContent += "[debug]:";
+        _logContent_content._str_logContent += "[debug] ";
         break;
     case 1:
         strcpy(s, "\033[1;34;40m");
-        _logContent_content._str_logContent += "[info]:";
+        _logContent_content._str_logContent += "[info] ";
         break;
     case 2:
         strcpy(s, "\033[1;33;40m");
-        _logContent_content._str_logContent += "[warn]:";
+        _logContent_content._str_logContent += "[warn] ";
         break;
     case 3:
         strcpy(s, "\033[1;31;40m");
-        _logContent_content._str_logContent += "[error]:";
+        _logContent_content._str_logContent += "[error] ";
         break;
     }
     _logContent_content._str_beginColor = s;
@@ -188,11 +188,25 @@ string XLog::getFileLineFunctionName(const char *format, ...)
 {
     va_list valst;
     va_start(valst, format);
-    char _str_pos_ptr[201] = {0};
-    int m = vsnprintf(_str_pos_ptr, 200, format, valst);
+    char _char_pos_ptr[201] = {0};
+    int m = vsnprintf(_char_pos_ptr, 200, format, valst);
     va_end(valst);
 
-    return string(_str_pos_ptr, 0, m);
+    string _str_pos = string(_char_pos_ptr, 0, m);
+
+    size_t _size_found = _str_pos.rfind("/");
+    if (_size_found != std::string::npos)
+    {
+        string _str_posTemp_ptr = _str_pos.substr(0, _size_found);
+        _str_pos = _str_pos.substr(_size_found, m - _size_found);
+        size_t _size_foundTemp = _str_posTemp_ptr.rfind("/");
+        if (_size_foundTemp != std::string::npos)
+        {
+            _str_pos = _str_posTemp_ptr.substr(_size_foundTemp, _str_posTemp_ptr.length() - _size_foundTemp) + _str_pos;
+        }
+    }
+
+    return _str_pos;
 }
 
 void XLog::flush(void)

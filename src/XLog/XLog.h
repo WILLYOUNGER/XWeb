@@ -79,6 +79,8 @@ private:
 			}
 			m_mutex.unlock();
 		}
+		char* _c_res_ptr = nullptr;
+		return _c_res_ptr;
 	}
 private:
 	char m_dir_name[128];
@@ -98,10 +100,10 @@ private:
 
 #define XLOG XLog::getInstance()
 
-#define XLOG_DEBUG(format, ...) if(XLOG->isOpen()) {XLOG->write_log(0, XLOG->getFileLineFunctionName("%s(%d)-<%s>: ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
-#define XLOG_INFO(format, ...) if(XLOG->isOpen()) {XLOG->write_log(1, XLOG->getFileLineFunctionName("%s(%d)-<%s>: ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
-#define XLOG_WARN(format, ...) if(XLOG->isOpen()) {XLOG->write_log(2, XLOG->getFileLineFunctionName("%s(%d)-<%s>: ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
-#define XLOG_ERROR(format, ...) if(XLOG->isOpen()) {XLOG->write_log(3, XLOG->getFileLineFunctionName("%s(%d)-<%s>: ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_DEBUG(format, ...) if(XLOG->isOpen()) {XLOG->write_log(0, XLOG->getFileLineFunctionName("%s(%d)-<%s> ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_INFO(format, ...) if(XLOG->isOpen()) {XLOG->write_log(1, XLOG->getFileLineFunctionName("%s(%d)-<%s> ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_WARN(format, ...) if(XLOG->isOpen()) {XLOG->write_log(2, XLOG->getFileLineFunctionName("%s(%d)-<%s> ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_ERROR(format, ...) if(XLOG->isOpen()) {XLOG->write_log(3, XLOG->getFileLineFunctionName("%s(%d)-<%s> ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
 
 
 #endif
