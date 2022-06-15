@@ -3,51 +3,23 @@
 
 ../bin/CMakeFiles/test.dir/XHTTP/XHttp.cpp.o
  /mnt/d/X/XWeb/src/XHTTP/XHttp.cpp
- /mnt/d/X/XWeb/src/XHTTP/XHttp.h
- /mnt/d/X/XWeb/src/XHTTP/XServlet.h
- /mnt/d/X/XWeb/src/XLog/XLog.h
- /mnt/d/X/XWeb/src/XNet/XBaseNet.h
- /mnt/d/X/XWeb/src/XPthread/XPthreadPool.h
- /mnt/d/X/XWeb/src/XStruct/XHttpStruct.h
- /mnt/d/X/XWeb/src/XStruct/XStruct.h
- /mnt/d/X/XWeb/src/XUserServlet/XServletDefine.h
- /mnt/d/X/XWeb/src/XUtils/XLock.h
- /mnt/d/X/XWeb/src/XUtils/XUtils.h
- /mnt/d/X/XWeb/src/XWebServer.h
- /mnt/d/X/XWeb/src/Xml/tinystr.h
- /mnt/d/X/XWeb/src/Xml/tinyxml.h
 ../bin/CMakeFiles/test.dir/XHTTP/XServlet.cpp.o
  /mnt/d/X/XWeb/src/XHTTP/XServlet.cpp
  /mnt/d/X/XWeb/src/XHTTP/XServlet.h
- /mnt/d/X/XWeb/src/XStruct/XHttpStruct.h
 ../bin/CMakeFiles/test.dir/XLog/XLog.cpp.o
  /mnt/d/X/XWeb/src/XLog/XLog.cpp
 ../bin/CMakeFiles/test.dir/XNet/XBaseNet.cpp.o
- /mnt/d/X/XWeb/src/XLog/XLog.h
  /mnt/d/X/XWeb/src/XNet/XBaseNet.cpp
- /mnt/d/X/XWeb/src/XNet/XBaseNet.h
- /mnt/d/X/XWeb/src/XStruct/XStruct.h
- /mnt/d/X/XWeb/src/XUtils/XUtils.h
 ../bin/CMakeFiles/test.dir/XPthread/XPthreadPool.cpp.o
- /mnt/d/X/XWeb/src/XLog/XLog.h
  /mnt/d/X/XWeb/src/XPthread/XPthreadPool.cpp
  /mnt/d/X/XWeb/src/XPthread/XPthreadPool.h
- /mnt/d/X/XWeb/src/XUtils/XLock.h
 ../bin/CMakeFiles/test.dir/XStruct/XStruct.cpp.o
- /mnt/d/X/XWeb/src/XLog/XLog.h
  /mnt/d/X/XWeb/src/XStruct/XStruct.cpp
  /mnt/d/X/XWeb/src/XStruct/XStruct.h
 ../bin/CMakeFiles/test.dir/XUserServlet/XTestServlet.cpp.o
- /mnt/d/X/XWeb/src/XHTTP/XServlet.h
- /mnt/d/X/XWeb/src/XStruct/XHttpStruct.h
- /mnt/d/X/XWeb/src/XUserServlet/XServletDefine.h
  /mnt/d/X/XWeb/src/XUserServlet/XTestServlet.cpp
- /mnt/d/X/XWeb/src/XUserServlet/XTestServlet.h
 ../bin/CMakeFiles/test.dir/XUtils/XUtils.cpp.o
- /mnt/d/X/XWeb/src/XLog/XLog.h
- /mnt/d/X/XWeb/src/XStruct/XStruct.h
  /mnt/d/X/XWeb/src/XUtils/XUtils.cpp
- /mnt/d/X/XWeb/src/XUtils/XUtils.h
 ../bin/CMakeFiles/test.dir/XWebServer.cpp.o
  /mnt/d/X/XWeb/src/XWebServer.cpp
 ../bin/CMakeFiles/test.dir/Xml/tinystr.cpp.o

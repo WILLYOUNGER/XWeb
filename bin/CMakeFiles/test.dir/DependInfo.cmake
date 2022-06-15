@@ -23,6 +23,18 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "."
+  "../src/./XHTTP"
+  "../src/./XLOG"
+  "../src/./Xml"
+  "../src/./XNet"
+  "../src/./XPthread"
+  "../src/./XResource"
+  "../src/./XRoot"
+  "../src/./XStruct"
+  "../src/./XUserServlet"
+  "../src/./XUtils"
+  "../src/."
   )
 
 # Targets to which this target links.

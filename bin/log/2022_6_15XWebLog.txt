@@ -1,0 +1,387 @@
+2022-06-15 09:29:54.585316  [debug]:debug
+2022-06-15 09:29:54.585688  [info]:info
+2022-06-15 09:29:54.585918  [warn]:warn
+2022-06-15 09:29:54.586299  [error]:error
+2022-06-15 09:29:54.586371  [debug]:create the 0 thread.
+2022-06-15 09:29:54.589453  [debug]:create the 1 thread.
+2022-06-15 09:29:54.589760  [debug]:create the 2 thread.
+2022-06-15 09:29:54.590032  [debug]:create the 3 thread.
+2022-06-15 09:29:54.590304  [debug]:create the 4 thread.
+2022-06-15 09:29:54.590578  [debug]:create the 5 thread.
+2022-06-15 09:29:54.590850  [debug]:create the 6 thread.
+2022-06-15 09:29:54.591116  [debug]:create the 7 thread.
+2022-06-15 09:29:54.592094  [debug]:server epollfd:5, port: 23333
+2022-06-15 09:29:54.592175  [debug]:add epollfd:5 add fd:4
+2022-06-15 09:29:54.592398  [debug]:add sig:13
+2022-06-15 11:07:22.405326  [info]:./test, version: 1.0.0
+2022-06-15 11:07:22.405583  [debug]:create the 0 thread.
+2022-06-15 11:07:22.406207  [debug]:create the 1 thread.
+2022-06-15 11:07:22.406617  [debug]:create the 2 thread.
+2022-06-15 11:07:22.406997  [debug]:create the 3 thread.
+2022-06-15 11:07:22.407327  [debug]:create the 4 thread.
+2022-06-15 11:07:22.407615  [debug]:create the 5 thread.
+2022-06-15 11:07:22.407899  [debug]:create the 6 thread.
+2022-06-15 11:07:22.408177  [debug]:create the 7 thread.
+2022-06-15 11:07:22.408523  [debug]:server epollfd:5, port: 23333
+2022-06-15 11:07:22.408607  [debug]:add epollfd:5 add fd:4
+2022-06-15 11:07:22.408833  [debug]:add sig:13
+2022-06-15 11:36:11.348695  [debug]:create the 0 thread.
+2022-06-15 11:36:11.349214  [debug]:create the 1 thread.
+2022-06-15 11:36:11.349621  [debug]:create the 2 thread.
+2022-06-15 11:36:11.350024  [debug]:create the 3 thread.
+2022-06-15 11:36:11.350411  [debug]:create the 4 thread.
+2022-06-15 11:36:11.350816  [debug]:create the 5 thread.
+2022-06-15 11:36:11.351224  [debug]:create the 6 thread.
+2022-06-15 11:36:11.351577  [debug]:create the 7 thread.
+2022-06-15 11:36:11.352045  [debug]:server epollfd:5, port: 23333
+2022-06-15 11:36:11.352151  [debug]:add epollfd:5 add fd:4
+2022-06-15 11:36:11.352389  [debug]:add sig:13
+2022-06-15 11:39:23.064380  [debug]:a client connected.connfd: 
+2022-06-15 11:39:23.065226  [debug]:add epollfd:5 add fd:6
+2022-06-15 11:39:23.065543  [debug]:gen message:GET / HTTP/1.1
+Host: 127.0.0.1:23333
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Purpose: prefetch
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+
+
+2022-06-15 11:39:23.070431  [debug]:now copy message:GET / HTTP/1.1
+Host: 127.0.0.1:23333
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Purpose: prefetch
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+
+
+2022-06-15 11:39:23.080811  [debug]:recv a request.
+2022-06-15 11:39:23.080900  [debug]:msg: epollfd:5, msg: fd:,
+2022-06-15 11:39:23.081258  [debug]:method:1
+2022-06-15 11:39:23.081571  [debug]:path:/index.html
+2022-06-15 11:39:23.081702  [debug]:version:HTTP/1.1
+2022-06-15 11:39:23.081992  [debug]:key:Host, value: 127.0.0.1:23333
+2022-06-15 11:39:23.082197  [debug]:key:Connection, value: keep-alive
+2022-06-15 11:39:23.082303  [debug]:key:sec-ch-ua, value: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+2022-06-15 11:39:23.082444  [debug]:key:sec-ch-ua-mobile, value: ?0
+2022-06-15 11:39:23.082552  [debug]:key:sec-ch-ua-platform, value: "Windows"
+2022-06-15 11:39:23.082725  [debug]:key:Upgrade-Insecure-Requests, value: 1
+2022-06-15 11:39:23.082848  [debug]:key:User-Agent, value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+2022-06-15 11:39:23.083020  [debug]:key:Accept, value: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+2022-06-15 11:39:23.083275  [debug]:key:Purpose, value: prefetch
+2022-06-15 11:39:23.083420  [debug]:key:Sec-Fetch-Site, value: none
+2022-06-15 11:39:23.083580  [debug]:key:Sec-Fetch-Mode, value: navigate
+2022-06-15 11:39:23.083735  [debug]:key:Sec-Fetch-User, value: ?1
+2022-06-15 11:39:23.083873  [debug]:key:Sec-Fetch-Dest, value: document
+2022-06-15 11:39:23.084037  [debug]:key:Accept-Encoding, value: gzip, deflate, br
+2022-06-15 11:39:23.084162  [debug]:key:Accept-Language, value: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+2022-06-15 11:39:23.084295  [debug]:servlet deal request.
+2022-06-15 11:39:23.098423  [debug]:servlet deal is empty. now auto deal.
+2022-06-15 11:39:23.098778  [debug]:mode epollfd:5 mode fd:6
+2022-06-15 11:39:23.099168  [info]:HTTP/1.1 200 OK
+Content-Length: 133
+Connection:close
+
+
+oft Edge";v="U
+2022-06-15 11:39:23.101968  [debug]:mode epollfd:5 mode fd:6
+2022-06-15 11:39:23.102329  [debug]:send message success.
+2022-06-15 11:39:23.109229  [debug]:remove epollfd:5 remove fd:6
+2022-06-15 11:39:25.168536  [debug]:a client connected.connfd: 
+2022-06-15 11:39:25.169370  [debug]:add epollfd:5 add fd:6
+2022-06-15 11:39:25.169746  [debug]:a client connected.connfd: 
+2022-06-15 11:39:25.169967  [debug]:add epollfd:5 add fd:7
+2022-06-15 11:39:34.961968  [debug]:gen message:GET /xtx/index.html HTTP/1.1
+Host: 127.0.0.1:23333
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+
+
+2022-06-15 11:39:34.964597  [debug]:now copy message:GET /xtx/index.html HTTP/1.1
+Host: 127.0.0.1:23333
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+
+
+2022-06-15 11:39:34.966499  [debug]:recv a request.
+2022-06-15 11:39:34.966584  [debug]:msg: epollfd:5, msg: fd:,
+2022-06-15 11:39:34.966765  [debug]:method:1
+2022-06-15 11:39:34.966860  [debug]:path:/xtx/index.html
+2022-06-15 11:39:34.966963  [debug]:version:HTTP/1.1
+2022-06-15 11:39:34.967067  [debug]:key:Host, value: 127.0.0.1:23333
+2022-06-15 11:39:34.967174  [debug]:key:Connection, value: keep-alive
+2022-06-15 11:39:34.967285  [debug]:key:sec-ch-ua, value: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+2022-06-15 11:39:34.967506  [debug]:key:sec-ch-ua-mobile, value: ?0
+2022-06-15 11:39:34.967599  [debug]:key:sec-ch-ua-platform, value: "Windows"
+2022-06-15 11:39:34.967703  [debug]:key:Upgrade-Insecure-Requests, value: 1
+2022-06-15 11:39:34.967811  [debug]:key:User-Agent, value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+2022-06-15 11:39:34.968214  [debug]:key:Accept, value: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+2022-06-15 11:39:34.968442  [debug]:key:Sec-Fetch-Site, value: none
+2022-06-15 11:39:34.968553  [debug]:key:Sec-Fetch-Mode, value: navigate
+2022-06-15 11:39:34.968747  [debug]:key:Sec-Fetch-User, value: ?1
+2022-06-15 11:39:34.968917  [debug]:key:Sec-Fetch-Dest, value: document
+2022-06-15 11:39:34.969044  [debug]:key:Accept-Encoding, value: gzip, deflate, br
+2022-06-15 11:39:34.969176  [debug]:key:Accept-Language, value: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+2022-06-15 11:39:34.969330  [debug]:servlet deal request.
+2022-06-15 11:39:34.969783  [debug]:servlet deal is empty. now auto deal.
+2022-06-15 11:39:34.969894  [debug]:mode epollfd:5 mode fd:6
+2022-06-15 11:39:34.970085  [info]:HTTP/1.1 200 OK
+Content-Length: -594071825
+Connection:close
+
+
+
+2022-06-15 11:39:34.970649  [debug]:mode epollfd:5 mode fd:6
+2022-06-15 11:39:34.970749  [debug]:send message success.
+2022-06-15 11:39:44.428341  [debug]:remove epollfd:5 remove fd:6
+2022-06-15 11:39:44.431971  [debug]:a client connected.connfd: 
+2022-06-15 11:39:44.432281  [debug]:add epollfd:5 add fd:6
+2022-06-15 11:39:44.433351  [debug]:gen message:GET /baidu.html HTTP/1.1
+Host: 127.0.0.1:23333
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+
+
+2022-06-15 11:39:44.435497  [debug]:now copy message:GET /baidu.html HTTP/1.1
+Host: 127.0.0.1:23333
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+
+
+2022-06-15 11:39:44.437605  [debug]:recv a request.
+2022-06-15 11:39:44.437642  [debug]:msg: epollfd:5, msg: fd:,
+2022-06-15 11:39:44.437847  [debug]:method:1
+2022-06-15 11:39:44.438000  [debug]:path:/baidu.html
+2022-06-15 11:39:44.438175  [debug]:version:HTTP/1.1
+2022-06-15 11:39:44.438370  [debug]:key:Host, value: 127.0.0.1:23333
+2022-06-15 11:39:44.438552  [debug]:key:Connection, value: keep-alive
+2022-06-15 11:39:44.438666  [debug]:key:sec-ch-ua, value: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+2022-06-15 11:39:44.438855  [debug]:key:sec-ch-ua-mobile, value: ?0
+2022-06-15 11:39:44.438964  [debug]:key:sec-ch-ua-platform, value: "Windows"
+2022-06-15 11:39:44.439152  [debug]:key:Upgrade-Insecure-Requests, value: 1
+2022-06-15 11:39:44.439267  [debug]:key:User-Agent, value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+2022-06-15 11:39:44.439477  [debug]:key:Accept, value: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+2022-06-15 11:39:44.439612  [debug]:key:Sec-Fetch-Site, value: none
+2022-06-15 11:39:44.439739  [debug]:key:Sec-Fetch-Mode, value: navigate
+2022-06-15 11:39:44.439861  [debug]:key:Sec-Fetch-User, value: ?1
+2022-06-15 11:39:44.439970  [debug]:key:Sec-Fetch-Dest, value: document
+2022-06-15 11:39:44.440107  [debug]:key:Accept-Encoding, value: gzip, deflate, br
+2022-06-15 11:39:44.440222  [debug]:key:Accept-Language, value: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+2022-06-15 11:39:44.440340  [debug]:servlet deal request.
+2022-06-15 11:39:44.467130  [debug]:servlet deal is empty. now auto deal.
+2022-06-15 11:39:44.467384  [debug]:mode epollfd:5 mode fd:7
+2022-06-15 11:39:44.467672  [info]:HTTP/1.1 200 OK
+Content-Length: 3863
+Connection:close
+
+
+e
+
+
+2022-06-15 11:39:44.470572  [debug]:mode epollfd:5 mode fd:7
+2022-06-15 11:39:44.470851  [debug]:send message success.
+2022-06-15 11:39:44.472195  [debug]:remove epollfd:5 remove fd:7
+2022-06-15 11:39:44.488199  [debug]:gen message:GET /imgs/logo.gif HTTP/1.1
+Host: 127.0.0.1:23333
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+sec-ch-ua-platform: "Windows"
+Accept: image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://127.0.0.1:23333/baidu.html
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+
+
+2022-06-15 11:39:44.490894  [debug]:now copy message:GET /imgs/logo.gif HTTP/1.1
+Host: 127.0.0.1:23333
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+sec-ch-ua-platform: "Windows"
+Accept: image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://127.0.0.1:23333/baidu.html
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+
+
+2022-06-15 11:39:44.493623  [debug]:recv a request.
+2022-06-15 11:39:44.493677  [debug]:msg: epollfd:5, msg: fd:,
+2022-06-15 11:39:44.493862  [debug]:a client connected.connfd: 
+2022-06-15 11:39:44.493997  [debug]:method:1
+2022-06-15 11:39:44.494094  [debug]:add epollfd:5 add fd:7
+2022-06-15 11:39:44.494218  [debug]:path:/imgs/logo.gif
+2022-06-15 11:39:44.494357  [debug]:gen message:GET /imgs/icon.jpg HTTP/1.1
+Host: 127.0.0.1:23333
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+sec-ch-ua-platform: "Windows"
+Accept: image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://127.0.0.1:23333/baidu.html
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+
+
+2022-06-15 11:39:44.494534  [debug]:version:HTTP/1.1
+2022-06-15 11:39:44.496259  [debug]:now copy message:GET /imgs/icon.jpg HTTP/1.1
+Host: 127.0.0.1:23333
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+sec-ch-ua-platform: "Windows"
+Accept: image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://127.0.0.1:23333/baidu.html
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+
+
+2022-06-15 11:39:44.496374  [debug]:key:Host, value: 127.0.0.1:23333
+2022-06-15 11:39:44.498063  [debug]:recv a request.
+2022-06-15 11:39:44.498102  [debug]:msg: epollfd:5, msg: fd:,
+2022-06-15 11:39:44.498155  [debug]:key:Connection, value: keep-alive
+2022-06-15 11:39:44.498378  [debug]:method:1
+2022-06-15 11:39:44.498488  [debug]:key:sec-ch-ua, value: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+2022-06-15 11:39:44.498590  [debug]:path:/imgs/icon.jpg
+2022-06-15 11:39:44.498782  [debug]:key:sec-ch-ua-mobile, value: ?0
+2022-06-15 11:39:44.498883  [debug]:version:HTTP/1.1
+2022-06-15 11:39:44.498992  [debug]:key:User-Agent, value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+2022-06-15 11:39:44.499094  [debug]:key:Host, value: 127.0.0.1:23333
+2022-06-15 11:39:44.499334  [debug]:key:sec-ch-ua-platform, value: "Windows"
+2022-06-15 11:39:44.499445  [debug]:key:Connection, value: keep-alive
+2022-06-15 11:39:44.499548  [debug]:key:Accept, value: image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+2022-06-15 11:39:44.499654  [debug]:key:sec-ch-ua, value: " Not A;Brand";v="99", "Chromium";v="102", "Microsoft Edge";v="102"
+2022-06-15 11:39:44.499776  [debug]:key:Sec-Fetch-Site, value: same-origin
+2022-06-15 11:39:44.499948  [debug]:key:sec-ch-ua-mobile, value: ?0
+2022-06-15 11:39:44.500100  [debug]:key:Sec-Fetch-Mode, value: no-cors
+2022-06-15 11:39:44.500198  [debug]:key:User-Agent, value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36 Edg/102.0.1245.39
+2022-06-15 11:39:44.500314  [debug]:key:Sec-Fetch-Dest, value: image
+2022-06-15 11:39:44.500530  [debug]:key:sec-ch-ua-platform, value: "Windows"
+2022-06-15 11:39:44.500637  [debug]:key:Referer, value: http://127.0.0.1:23333/baidu.html
+2022-06-15 11:39:44.500748  [debug]:key:Accept, value: image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+2022-06-15 11:39:44.500864  [debug]:key:Accept-Encoding, value: gzip, deflate, br
+2022-06-15 11:39:44.500980  [debug]:key:Sec-Fetch-Site, value: same-origin
+2022-06-15 11:39:44.501095  [debug]:key:Accept-Language, value: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+2022-06-15 11:39:44.501211  [debug]:key:Sec-Fetch-Mode, value: no-cors
+2022-06-15 11:39:44.501420  [debug]:servlet deal request.
+2022-06-15 11:39:44.501539  [debug]:key:Sec-Fetch-Dest, value: image
+2022-06-15 11:39:44.501771  [debug]:key:Referer, value: http://127.0.0.1:23333/baidu.html
+2022-06-15 11:39:44.501940  [debug]:key:Accept-Encoding, value: gzip, deflate, br
+2022-06-15 11:39:44.502066  [debug]:key:Accept-Language, value: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+2022-06-15 11:39:44.502300  [debug]:servlet deal request.
+2022-06-15 11:39:44.503826  [debug]:servlet deal is empty. now auto deal.
+2022-06-15 11:39:44.504200  [debug]:mode epollfd:5 mode fd:6
+2022-06-15 11:39:44.504796  [info]:HTTP/1.1 200 OK
+Content-Length: 1575
+Connection:close
+
+
+
+2022-06-15 11:39:44.508258  [debug]:mode epollfd:5 mode fd:6
+2022-06-15 11:39:44.509694  [debug]:send message success.
+2022-06-15 11:39:44.510966  [debug]:remove epollfd:5 remove fd:6
+2022-06-15 11:39:44.513279  [debug]:servlet deal is empty. now auto deal.
+2022-06-15 11:39:44.513438  [debug]:mode epollfd:5 mode fd:7
+2022-06-15 11:39:44.513583  [info]:HTTP/1.1 200 OK
+Content-Length: 864
+Connection:close
+
+
+ose
+
+
+
+
+2022-06-15 11:39:44.514812  [debug]:mode epollfd:5 mode fd:7
+2022-06-15 11:39:44.514925  [debug]:send message success.
+2022-06-15 11:39:44.515226  [debug]:remove epollfd:5 remove fd:7
+2022-06-15 11:58:04.562638  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:create the 0 thread.
+2022-06-15 11:58:04.563123  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:create the 1 thread.
+2022-06-15 11:58:04.563539  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:create the 2 thread.
+2022-06-15 11:58:04.563907  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:create the 3 thread.
+2022-06-15 11:58:04.564284  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:create the 4 thread.
+2022-06-15 11:58:04.564665  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:create the 5 thread.
+2022-06-15 11:58:04.565102  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:create the 6 thread.
+2022-06-15 11:58:04.565436  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:create the 7 thread.
+2022-06-15 11:58:04.565798  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:server epollfd:5, port: 23333
+2022-06-15 11:58:04.565892  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:add epollfd:5 add fd:4
+2022-06-15 11:58:04.566081  /mnt/d/X/XWeb/src/XLog/XLog.cpp(87)-<write_log> [debug]:add sig:13

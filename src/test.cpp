@@ -4,6 +4,7 @@
 #include <libgen.h>
 #include <iostream>
 #include <unistd.h>
+//#include <Config.h>
 using namespace std;
 using namespace XNETBASE;
 int main(int argc, char* argv[])
@@ -15,10 +16,7 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	XLOG_DEBUG("debug");
-	XLOG_INFO("info");
-	XLOG_WARN("warn");
-	XLOG_ERROR("error");
+	//XLOG_INFO("%s, version: %d.%d.%d", argv[0], XWEB_VERSION_MAJOR, XWEB_VERSION_MINOR, XWEB_VERSION_PATCH);
 
 	XWebServer server;
 	while (true)

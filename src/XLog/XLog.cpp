@@ -71,7 +71,7 @@ bool XLog::init(const char* file_name, int close_log, int level, int log_buf_siz
 	return true;
 }
 
-void XLog::write_log(int level, const char *format, ...)
+void XLog::write_log(int level, string pos, const char *format, ...)
 {
     if (level < m_level || m_close_log == 0)
     {
@@ -84,23 +84,24 @@ void XLog::write_log(int level, const char *format, ...)
     struct tm my_tm = *sys_tm;
     XLOGCONTENT _logContent_content;
     char s[16] = {0};
+    _logContent_content._str_logContent = pos;
     switch (level)
     {
     case 0:
         strcpy(s, "\033[1;32;40m");
-        _logContent_content._str_logContent = "[debug]:";
+        _logContent_content._str_logContent += "[debug]:";
         break;
     case 1:
         strcpy(s, "\033[1;34;40m");
-        _logContent_content._str_logContent = "[info]:";
+        _logContent_content._str_logContent += "[info]:";
         break;
     case 2:
         strcpy(s, "\033[1;33;40m");
-        _logContent_content._str_logContent = "[warn]:";
+        _logContent_content._str_logContent += "[warn]:";
         break;
     case 3:
         strcpy(s, "\033[1;31;40m");
-        _logContent_content._str_logContent = "[error]:";
+        _logContent_content._str_logContent += "[error]:";
         break;
     }
     _logContent_content._str_beginColor = s;
@@ -181,6 +182,17 @@ void XLog::write_log(int level, const char *format, ...)
     }
 
     va_end(valst);
+}
+
+string XLog::getFileLineFunctionName(const char *format, ...)
+{
+    va_list valst;
+    va_start(valst, format);
+    char _str_pos_ptr[201] = {0};
+    int m = vsnprintf(_str_pos_ptr, 200, format, valst);
+    va_end(valst);
+
+    return string(_str_pos_ptr, 0, m);
 }
 
 void XLog::flush(void)

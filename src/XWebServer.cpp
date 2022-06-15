@@ -75,6 +75,10 @@ void XWebServer::WriteCallback(XSocket epollfd, XSocket socket)
             _iv_count = 2;
             int bytes_to_send = _iv[0].iov_len + _iv[1].iov_len;
             int bytes_have_send = 0;
+
+            _head[temp.getHeadString().size()] = '\n';
+            XLOG_INFO(_head);
+
             // while (1)
             // {
             int temp = writev(socket, _iv, _iv_count);

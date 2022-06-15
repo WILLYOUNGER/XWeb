@@ -1,5 +1,5 @@
 #include "XTestServlet.h"
-#include "../XStruct/XHttpStruct.h"
+#include "XHttpStruct.h"
 #include <iostream>
 
 using namespace XNETSTRUCT;

@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 #include <functional>
-#include "../XLog/XLog.h"
+#include "XLog.h"
 
 namespace XNETSTRUCT {
 

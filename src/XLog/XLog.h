@@ -3,8 +3,8 @@
 
 #include <string>
 #include <cstdio>
-#include "../XUtils/XLock.h"
-#include "../XUtils/XBlockQueue.h"
+#include "XLock.h"
+#include "XBlockQueue.h"
 
 typedef struct XLOGCONTENT
 {
@@ -50,7 +50,9 @@ public:
 	 */
 	bool init(const char* file_name, int close_log, int level = 0, int log_buf_size = 8192, int split_lines = 5000000, int max_queue_size = 0);
 
-	void write_log(int level, const char *format, ...);
+	void write_log(int level, std::string pos, const char *format, ...);
+
+	std::string getFileLineFunctionName(const char *format, ...);
 
 	bool isOpen()
 	{
@@ -96,10 +98,10 @@ private:
 
 #define XLOG XLog::getInstance()
 
-#define XLOG_DEBUG(format, ...) if(XLOG->isOpen()) {XLOG->write_log(0, format, ##__VA_ARGS__); XLOG->flush();}
-#define XLOG_INFO(format, ...) if(XLOG->isOpen()) {XLOG->write_log(1, format, ##__VA_ARGS__); XLOG->flush();}
-#define XLOG_WARN(format, ...) if(XLOG->isOpen()) {XLOG->write_log(2, format, ##__VA_ARGS__); XLOG->flush();}
-#define XLOG_ERROR(format, ...) if(XLOG->isOpen()) {XLOG->write_log(3, format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_DEBUG(format, ...) if(XLOG->isOpen()) {XLOG->write_log(0, XLOG->getFileLineFunctionName("%s(%d)-<%s>: ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_INFO(format, ...) if(XLOG->isOpen()) {XLOG->write_log(1, XLOG->getFileLineFunctionName("%s(%d)-<%s>: ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_WARN(format, ...) if(XLOG->isOpen()) {XLOG->write_log(2, XLOG->getFileLineFunctionName("%s(%d)-<%s>: ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
+#define XLOG_ERROR(format, ...) if(XLOG->isOpen()) {XLOG->write_log(3, XLOG->getFileLineFunctionName("%s(%d)-<%s>: ", __FILE__, __LINE__, __FUNCTION__), format, ##__VA_ARGS__); XLOG->flush();}
 
 
 #endif

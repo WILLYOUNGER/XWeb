@@ -8,7 +8,7 @@
 #include <sys/epoll.h>
 #include <unistd.h>	//close(int sockfd)
 #include <cstring>
-#include "../XLog/XLog.h"
+#include "XLog.h"
 
 using namespace std;
 using namespace XUTILS;

@@ -4,8 +4,8 @@
 #include <pthread.h>
 #include <list>
 #include <map>
-#include "../XUtils/XLock.h"
-#include "../XLog/XLog.h"
+#include "XLock.h"
+#include "XLog.h"
 #include <exception>
 #include <unistd.h>
 

@@ -1,11 +1,11 @@
 #include "XHttp.h"
 #include <unistd.h>
-#include "../Xml/tinyxml.h"
-#include "../Xml/tinystr.h"
-#include "../XUserServlet/XServletDefine.h"
-#include "../XUtils/XUtils.h"
-#include "../XWebServer.h"
-#include "../XLog/XLog.h"
+#include "tinyxml.h"
+#include "tinystr.h"
+#include "XServletDefine.h"
+#include "XUtils.h"
+#include "XWebServer.h"
+#include "XLog.h"
 
 #include <sys/epoll.h>
 #include <sys/stat.h>

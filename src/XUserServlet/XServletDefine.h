@@ -3,7 +3,7 @@
 
 #include <map>
 #include <string>
-#include "../XHTTP/XServlet.h"
+#include "XServlet.h"
 
 extern std::map<const std::string, funcPtr> XServletMap;
 

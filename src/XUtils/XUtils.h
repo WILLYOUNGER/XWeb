@@ -1,7 +1,7 @@
 #ifndef X_UTILS_H
 #define X_UTILS_H
 
-#include "../XStruct/XStruct.h"
+#include "XStruct.h"
 
 namespace XUTILS{
 

@@ -3,7 +3,7 @@
 
 #include <pthread.h>
 #include <netinet/in.h>
-#include "../XStruct/XStruct.h"
+#include "XStruct.h"
 
 namespace XNETBASE{
 

@@ -1,7 +1,7 @@
 #ifndef X_TEST_SERVLET_H
 #define X_TEST_SERVLET_H
 
-#include "../XHTTP/XServlet.h"
+#include "XServlet.h"
 #include "XServletDefine.h"
 
 class XTestServlet : public XServlet

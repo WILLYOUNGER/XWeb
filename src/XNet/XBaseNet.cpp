@@ -12,8 +12,8 @@
 #include <memory.h>
 #include <pthread.h>
 
-#include "../XUtils/XUtils.h"
-#include "../XLog/XLog.h"
+#include "XUtils.h"
+#include "XLog.h"
 
 using namespace std;
 using namespace XNETBASE;

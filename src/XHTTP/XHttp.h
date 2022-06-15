@@ -1,8 +1,8 @@
 #ifndef X_HTTP_H
 #define X_HTTP_H
 
-#include "../XStruct/XStruct.h"
-#include "../XStruct/XHttpStruct.h"
+#include "XStruct.h"
+#include "XHttpStruct.h"
 #include "XServlet.h"
 
 class XHttp

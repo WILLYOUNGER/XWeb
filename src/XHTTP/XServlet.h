@@ -1,7 +1,7 @@
 #ifndef X_SERVLET_H
 #define X_SERVLET_H
 
-#include "../XStruct/XHttpStruct.h"
+#include "XHttpStruct.h"
 #include <map>
 
 class XServlet;
