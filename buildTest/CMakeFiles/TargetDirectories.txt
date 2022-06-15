@@ -1,5 +1,0 @@
-/mnt/d/X/XWeb/buildTest/CMakeFiles/rebuild_cache.dir
-/mnt/d/X/XWeb/buildTest/CMakeFiles/edit_cache.dir
-/mnt/d/X/XWeb/bin/CMakeFiles/rebuild_cache.dir
-/mnt/d/X/XWeb/bin/CMakeFiles/edit_cache.dir
-/mnt/d/X/XWeb/bin/CMakeFiles/test.dir
