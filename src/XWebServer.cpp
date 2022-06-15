@@ -46,17 +46,17 @@ void XWebServer::CloseCallback(void)
 
 void XWebServer::ReadCallback(XMsgPtr msg)
 {
-    pool->append(msg);
     XLOG_DEBUG("recv a request.");
+    pool->append(msg);
 }
 
-void XWebServer::WriteCallback(XSocket epollfd, XSocket socket)
+bool XWebServer::WriteCallback(XSocket epollfd, XSocket socket)
 {
     if (XWebServer::m_reply.count(socket) == 0)
     {
         UTILS->modfd(epollfd, socket, EPOLLIN, 0);
         XLOG_DEBUG("not find need send message.");
-        return;
+        return true;
     }
     else
     {
@@ -79,44 +79,28 @@ void XWebServer::WriteCallback(XSocket epollfd, XSocket socket)
             _head[temp.getHeadString().size()] = '\0';
             XLOG_INFO(_head);
 
-            int temp = writev(socket, _iv, _iv_count);
-            //XLOG_DEBUG("length:%d", temp);
-            //     if (temp < 0)
-            //     {
-            //         if (errno == EAGAIN)
-            //         {
-            //             modfd(m_epollfd, m_sockfd, EPOLLOUT, m_TRIGMode);
-            //         }
-            //         //unmap();
-            //     }
+            int templen = writev(socket, _iv, _iv_count);
+            if (templen < 0)
+            {
+                if (errno == EAGAIN)
+                {
+                    UTILS->modfd(epollfd, socket, EPOLLOUT, 0);
+                }
+            }
+            else
+            {
+                XLOG_DEBUG("send message success.");
+            }
 
-            //     bytes_have_send += temp;
-            //     bytes_to_send -= temp;
-            //     if (bytes_have_send >= m_iv[0].iov_len)
-            //     {
-            //         m_iv[0].iov_len = 0;
-            //         m_iv[1].iov_base = m_file_address + (bytes_have_send - m_write_idx);
-            //         m_iv[1].iov_len = bytes_to_send;
-            //     }
-            //     else
-            //     {
-            //         m_iv[0].iov_base = m_write_buf + bytes_have_send;
-            //         m_iv[0].iov_len = m_iv[0].iov_len - bytes_have_send;
-            //     }
-
-            //     if (bytes_to_send <= 0)
-            //     {
-            //         unmap();
-            //     }
-            // }
             XWebServer::m_reply[socket]->pop_front();
-            UTILS->modfd(epollfd, socket, EPOLLOUT, 0);
-            XLOG_DEBUG("send message success.");
+            UTILS->modfd(epollfd, socket, EPOLLIN, 0);
+
+            return temp.getNeedClose();
         }
         else
         {
             XLOG_DEBUG("Response is null");
-            close(socket);
+            return true;
         }
     }
 }

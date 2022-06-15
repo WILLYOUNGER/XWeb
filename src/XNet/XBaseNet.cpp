@@ -128,11 +128,6 @@ void XServer::run()
 			}
 			else if (events[i].events & (EPOLLRDHUP | EPOLLHUP | EPOLLERR))
 			{
-				XLOG_DEBUG("events[i].events & (EPOLLRDHUP | EPOLLHUP | EPOLLERR) : %d", events[i].events & (EPOLLRDHUP | EPOLLHUP | EPOLLERR));
-				XLOG_DEBUG("events[%d].events:%d", i, events[i].events);
-				XLOG_DEBUG("EPOLLRDHUP:%d", EPOLLRDHUP);
-				XLOG_DEBUG("EPOLLHUP:%d", EPOLLHUP);
-				XLOG_DEBUG("EPOLLERR:%d", EPOLLERR);
 				UTILS->removefd(m_epollfd, sockfd);
 				m_sockfd_num--;
 			}
@@ -189,7 +184,11 @@ void XServer::run()
 				}
 				else
 				{
-					m_writeCb(m_epollfd, sockfd);
+					if (m_writeCb(m_epollfd, sockfd))
+					{
+						UTILS->removefd(m_epollfd, sockfd);
+						m_sockfd_num--;
+					}
 				}
 			}
 		}

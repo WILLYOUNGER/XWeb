@@ -36,7 +36,7 @@ typedef std::shared_ptr<XMessage> XMsgPtr;
 typedef std::function<void(XSocket)> XSConCB;
 typedef std::function<void(void)> XSCloseCB;
 typedef std::function<void(XMsgPtr)> XSReadCB;
-typedef std::function<void(XSocket, XSocket)> XSWriteCB;
+typedef std::function<bool(XSocket, XSocket)> XSWriteCB;
 
 class XMessage
 {

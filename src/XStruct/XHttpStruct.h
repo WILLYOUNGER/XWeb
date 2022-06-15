@@ -148,6 +148,17 @@ public:
 	{
 		return m_head;
 	}
+
+	void setNeedClose(bool needClose)
+	{
+		m_b_isNeedClose = needClose;
+	}
+
+	bool getNeedClose()
+	{
+		return m_b_isNeedClose;
+	}
+
 private:
 	HTTP_CODE m_http_code;
 
@@ -156,6 +167,8 @@ private:
 	char* m_file_address;
 
 	int m_content_length;
+
+	bool m_b_isNeedClose { true };
 
 	std::string m_head;
 };

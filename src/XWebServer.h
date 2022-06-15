@@ -18,7 +18,7 @@ private:
 
 	void ReadCallback(XNETSTRUCT::XMsgPtr msg);
 
-	void WriteCallback(XNETSTRUCT::XSocket epollfd, XNETSTRUCT::XSocket socket);
+	bool WriteCallback(XNETSTRUCT::XSocket epollfd, XNETSTRUCT::XSocket socket);
 private:
 	XNETBASE::XServer* m_web_server;
 

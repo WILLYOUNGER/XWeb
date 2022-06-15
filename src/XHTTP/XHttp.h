@@ -79,6 +79,7 @@ private:
 	int m_line_begin{0};
 	int m_line_end{0};
 	int m_content_length{0};
+	bool m_b_isKeepAlive { false };
 	XNETSTRUCT::METHOD m_method;
 	CHECK_STATE m_check_state;
 

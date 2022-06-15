@@ -33,10 +33,12 @@ XHttp::~XHttp()
 void XHttp::init()
 {
 	xml2map();
+	m_b_isKeepAlive = false;
 }
 
 void XHttp::process(XMsgPtr &msg)
 {
+	XLOG_INFO("%s", msg->getContent().c_str());
 	m_msg = msg;
 	XLOG_DEBUG("msg: epollfd:%d, msg: fd:,", msg->getEpollfd(), msg->getSocket());
 	m_read_now = 0;
@@ -210,6 +212,17 @@ HTTP_CODE XHttp::parse_request_header(string &str)
 		{
 			m_content_length = atol(str.c_str());
 		}
+		else if (key == "Connection")
+		{
+			if (value == "close")
+			{
+				m_b_isKeepAlive = false;
+			}
+			else
+			{
+				m_b_isKeepAlive = true;
+			}
+		}
 	}
 }
 
@@ -370,7 +383,14 @@ void XHttp::dealresponse(std::string &str)
 	{
 		str = str + "HTTP/1.1 200 OK\r\n";
 		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
-		str = str + "Connection:close\r\n";
+		if (m_b_isKeepAlive)
+		{
+			str = str + "Connection:Keep-Alive\r\n";
+		}
+		else
+		{
+			str = str + "Connection:close" + "\r\n";
+		}
 		str = str + "\r\n";
 	}
 	else if (_code == INTERNAL_ERROR)
@@ -385,7 +405,14 @@ void XHttp::dealresponse(std::string &str)
 	{
 		str = str + "HTTP/1.1 200 OK\r\n";
 		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
-		str = str + "Connection:Keep-Alive\r\n";
+		if (m_b_isKeepAlive)
+		{
+			str = str + "Connection:Keep-Alive\r\n";
+		}
+		else
+		{
+			str = str + "Connection:close" + "\r\n";
+		}
 		str = str + "Content-Type:image/x-icon\r\n";
 		str = str + "\r\n";
 	}
@@ -393,7 +420,14 @@ void XHttp::dealresponse(std::string &str)
 	{
 		str = str + "HTTP/1.1 200 OK\r\n";
 		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
-		str = str + "Connection:Keep-Alive\r\n";
+		if (m_b_isKeepAlive)
+		{
+			str = str + "Connection:Keep-Alive\r\n";
+		}
+		else
+		{
+			str = str + "Connection:close" + "\r\n";
+		}
 		str = str + "Content-Type:image/x-icon\r\n";
 		str = str + "\r\n";
 	}
@@ -401,11 +435,19 @@ void XHttp::dealresponse(std::string &str)
 	{
 		str = str + "HTTP/1.1 200 OK\r\n";
 		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
-		str = str + "Connection:Keep-Alive\r\n";
+		if (m_b_isKeepAlive)
+		{
+			str = str + "Connection:Keep-Alive\r\n";
+		}
+		else
+		{
+			str = str + "Connection:close" + "\r\n";
+		}
 		str = str + "Content-Type:image/gif\r\n";
 		str = str + "\r\n";
 	}
 	m_response.setHeadString(str);
+	m_response.setNeedClose(!m_b_isKeepAlive);
 }
 
 void XHttp::do_request(string str)
