@@ -1,3 +1,4 @@
 bin/*
 buildTest/*
 .vscode/*
+bin/log/*
