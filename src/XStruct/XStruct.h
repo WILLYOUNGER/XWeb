@@ -48,7 +48,6 @@ public:
 		message = msg->message;
 		m_fd = msg->m_fd;
 		m_epollfd = msg->m_epollfd;
-		XLOG_DEBUG("now copy message:%s", message.c_str());
 	}
 
 	XMessage(char* _message, XSocket epollfd, XSocket _fd)
@@ -56,7 +55,6 @@ public:
 		message = _message;
 		m_epollfd = epollfd;
 		m_fd = _fd;
-		XLOG_DEBUG("gen message:%s", _message);
 	}
 
 	std::string getContent() const

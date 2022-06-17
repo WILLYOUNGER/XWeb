@@ -48,7 +48,7 @@ void XServer::beginListen()
 	m_sockfd = socket(PF_INET, SOCK_STREAM, 0);
 	assert(m_sockfd >= 0);
 
-	UTILS->setFdCloseNow(m_sockfd, 1, 0);
+	UTILS->setFdCloseNow(m_sockfd, 1, 1);
 
 	int ret = bind(m_sockfd, (struct sockaddr*) &address, sizeof(address) );
 	assert(ret != -1);
@@ -56,9 +56,7 @@ void XServer::beginListen()
 	ret = listen(m_sockfd, m_max_connect_num);
 	assert(ret != -1);
 
-	m_epollfd = epoll_create(5);
-
-	XLOG_DEBUG("server epollfd:%d, port: %d", m_epollfd, m_port);
+	m_epollfd = epoll_create(MAX_FD);
 
 	assert(m_epollfd != -1);
 	UTILS->setnonblocking(m_epollfd);

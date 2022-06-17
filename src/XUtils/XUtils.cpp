@@ -47,7 +47,6 @@ int Utils::setnonblocking(XSocket fd)
 
 void Utils::addfd(XSocket epollfd, XSocket fd, bool one_shot, int mode)
 {
-	XLOG_DEBUG("add epollfd:%d add fd:%d", epollfd, fd);
 	epoll_event event;
 	event.data.fd = fd;
 	event.events = EPOLLIN | EPOLLRDHUP;
@@ -65,14 +64,12 @@ void Utils::addfd(XSocket epollfd, XSocket fd, bool one_shot, int mode)
 
 void Utils::removefd(XSocket epollfd, XSocket fd)
 {
-	XLOG_DEBUG("remove epollfd:%d remove fd:%d",epollfd, fd);
 	epoll_ctl(epollfd, EPOLL_CTL_DEL, fd, 0);
 	close(fd);
 }
 
 void Utils::modfd(XSocket epollfd, XSocket fd, int ev, int mode)
 {
-	XLOG_DEBUG("mode epollfd:%d mode fd:%d", epollfd, fd);
 	epoll_event event;
 	event.data.fd = fd;
     if (1 == mode)
@@ -85,7 +82,6 @@ void Utils::modfd(XSocket epollfd, XSocket fd, int ev, int mode)
 
 void Utils::addsig(int sig, void (handler)(int), bool restart)
 {
-	XLOG_DEBUG("add sig:%d", sig);
 	struct sigaction sa;
 	memset(&sa, '\0', sizeof(sa));
 	sa.sa_handler = handler;

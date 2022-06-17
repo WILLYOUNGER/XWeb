@@ -33,14 +33,13 @@ XHttp::~XHttp()
 void XHttp::init()
 {
 	xml2map();
-	m_b_isKeepAlive = false;
+	m_b_isKeepAlive = true;
 }
 
 void XHttp::process(XMsgPtr &msg)
 {
 	XLOG_INFO("%s", msg->getContent().c_str());
 	m_msg = msg;
-	XLOG_DEBUG("msg: epollfd:%d, msg: fd:,", msg->getEpollfd(), msg->getSocket());
 	m_read_now = 0;
 	m_line_begin = 0;
 	m_content_length == 0;
@@ -54,11 +53,9 @@ void XHttp::process(XMsgPtr &msg)
 	if (res == GET_REQUEST)
 	{
 		path2servlet(m_request.getPath());
-		XLOG_DEBUG("servlet deal request.");
 		if (m_response.isEmpty())
 		{
 			do_request(m_request.getPath());
-			XLOG_DEBUG("servlet deal is empty. now auto deal.");
 		}
 	}
 	else if (res == BAD_REQUEST)
@@ -175,7 +172,6 @@ HTTP_CODE XHttp::parse_request_line(string &str)
 	string res;
 	split(str, ' ', res);
 	m_method = Str2MetHod(res);
-	XLOG_DEBUG("method:%d", m_method);
 	m_request.setMethod(m_method);
 	split(str, ' ', res);
 	if (res == "/")
@@ -183,10 +179,8 @@ HTTP_CODE XHttp::parse_request_line(string &str)
 		res += "index.html";
 	}
 	m_request.setPath(res);
-	XLOG_DEBUG("path:%s", res.c_str());
 	split(str, ' ', res);
 	m_request.setVersion(res);
-	XLOG_DEBUG("version:%s", res.c_str());
 	m_check_state = CHECK_STATE_HEADER;
 	return GET_REQUEST;
 }
@@ -206,7 +200,6 @@ HTTP_CODE XHttp::parse_request_header(string &str)
 	{
 		string key, value;
 		split(str, ':', key);
-		XLOG_DEBUG("key:%s, value:%s", key.c_str(), str.c_str());
 		m_request.setAttribute(key, str);
 		if (key == "Content-Length")
 		{
@@ -214,13 +207,13 @@ HTTP_CODE XHttp::parse_request_header(string &str)
 		}
 		else if (key == "Connection")
 		{
-			if (value == "close")
+			if (value == " keep-alive" || value == "keep-alive")
 			{
-				m_b_isKeepAlive = false;
+				m_b_isKeepAlive = true;
 			}
 			else
 			{
-				m_b_isKeepAlive = true;
+				m_b_isKeepAlive = false;
 			}
 		}
 	}
@@ -239,7 +232,6 @@ XNETSTRUCT::HTTP_CODE XHttp::parse_request_content(std::string &str)
 	{
 		ret = split(str, '&', body);
 		split(body, '=', key);
-		XLOG_DEBUG("body: key:%s, value:%s", key.c_str(), body.c_str());
 		m_request.setAttribute(key, body);
 	}
 
@@ -364,7 +356,6 @@ void XHttp::sendResponse()
 	{
 		XWebServer::m_reply[m_msg->getSocket()]->push_back(m_response);
 	}
-	//XLOG_DEBUG("notify baseNet write response:%s", response.c_str());
 	UTILS->modfd(m_msg->getEpollfd(), m_msg->getSocket(), EPOLLOUT, 0);
 }
 
@@ -383,14 +374,7 @@ void XHttp::dealresponse(std::string &str)
 	{
 		str = str + "HTTP/1.1 200 OK\r\n";
 		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
-		if (m_b_isKeepAlive)
-		{
-			str = str + "Connection:Keep-Alive\r\n";
-		}
-		else
-		{
-			str = str + "Connection:close" + "\r\n";
-		}
+		str = str + "Connection:" + ((m_b_isKeepAlive == true) ? "keep-alive" : "close") + "\r\n";
 		str = str + "\r\n";
 	}
 	else if (_code == INTERNAL_ERROR)
@@ -405,14 +389,7 @@ void XHttp::dealresponse(std::string &str)
 	{
 		str = str + "HTTP/1.1 200 OK\r\n";
 		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
-		if (m_b_isKeepAlive)
-		{
-			str = str + "Connection:Keep-Alive\r\n";
-		}
-		else
-		{
-			str = str + "Connection:close" + "\r\n";
-		}
+		str = str + "Connection:" + ((m_b_isKeepAlive == true) ? "keep-alive" : "close") + "\r\n";
 		str = str + "Content-Type:image/x-icon\r\n";
 		str = str + "\r\n";
 	}
@@ -420,14 +397,7 @@ void XHttp::dealresponse(std::string &str)
 	{
 		str = str + "HTTP/1.1 200 OK\r\n";
 		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
-		if (m_b_isKeepAlive)
-		{
-			str = str + "Connection:Keep-Alive\r\n";
-		}
-		else
-		{
-			str = str + "Connection:close" + "\r\n";
-		}
+		str = str + "Connection:" + ((m_b_isKeepAlive == true) ? "keep-alive" : "close") + "\r\n";
 		str = str + "Content-Type:image/x-icon\r\n";
 		str = str + "\r\n";
 	}
@@ -435,14 +405,7 @@ void XHttp::dealresponse(std::string &str)
 	{
 		str = str + "HTTP/1.1 200 OK\r\n";
 		str = str + "Content-Length: " + to_string(m_response.getContentLength()) + "\r\n";
-		if (m_b_isKeepAlive)
-		{
-			str = str + "Connection:Keep-Alive\r\n";
-		}
-		else
-		{
-			str = str + "Connection:close" + "\r\n";
-		}
+		str = str + "Connection:" + ((m_b_isKeepAlive == true) ? "keep-alive" : "close") + "\r\n";
 		str = str + "Content-Type:image/gif\r\n";
 		str = str + "\r\n";
 	}
