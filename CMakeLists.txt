@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.5)
 
 PROJECT (TEST VERSION 1.0.0)
 
@@ -12,3 +12,4 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 ADD_SUBDIRECTORY(src ../bin)
+ADD_SUBDIRECTORY(third)
