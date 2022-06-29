@@ -1,23 +1,53 @@
-cmake_minimum_required(VERSION 3.16)
-SET (SRC_LIST test.cpp ./XNet/XBaseNet.h ./XNet/XBaseNet.cpp ./XStruct/XStruct.h ./XStruct/XStruct.cpp ./XUtils/XUtils.h ./XUtils/XUtils.cpp ./XHTTP/XHttp.h ./XHTTP/XHttp.cpp ./XLog/XLog.h ./XLog/XLog.cpp ./XPthread/XPthreadPool.h ./XPthread/XPthreadPool.cpp ./XUtils/XBlockQueue.h ./XUtils/XLock.h XWebServer.cpp XWebServer.h ./XHTTP/XServlet.h ./XHTTP/XServlet.cpp ./XStruct/XHttpStruct.h ./XUtils/XLock.h ./Xml/tinystr.h ./Xml/tinystr.cpp ./Xml/tinyxml.h ./Xml/tinyxml.cpp ./Xml/tinyxmlerror.cpp ./Xml/tinyxmlparser.cpp ./XUserServlet/XServletDefine.h ./XUserServlet/XTestServlet.h ./XUserServlet/XTestServlet.cpp)
-
-MESSAGE(STATUS "This is BINARY dir" ${PROJECT_BINARY_DIR})
-
-ADD_EXECUTABLE(test ${SRC_LIST})
-target_link_libraries(test pthread)
-target_include_directories(test PUBLIC "${PROJECT_BINARY_DIR}")
-
-target_include_directories(test PUBLIC ./XHTTP)
-target_include_directories(test PUBLIC ./XLog)
-target_include_directories(test PUBLIC ./Xml)
-target_include_directories(test PUBLIC ./XNet)
-target_include_directories(test PUBLIC ./XPthread)
-target_include_directories(test PUBLIC ./XResource)
-target_include_directories(test PUBLIC ./XRoot)
-target_include_directories(test PUBLIC ./XStruct)
-target_include_directories(test PUBLIC ./XUserServlet)
-target_include_directories(test PUBLIC ./XUtils)
-target_include_directories(test PUBLIC .)
+cmake_minimum_required(VERSION 3.5)
 
 
+############################################################
+# Create a library
+############################################################
 
+message("--------Cur Src Dir: " ${CMAKE_CURRENT_LIST_DIR})
+file(GLOB_RECURSE XPUB_SRC_LIST ${CMAKE_CURRENT_LIST_DIR}/*/*.cpp)
+message("--------TEST RESULT: " ${XPUB_SRC_LIST})
+
+#Generate the shared library from the library sources
+add_library(XPUB SHARED 
+    ${XPUB_SRC_LIST}
+)
+add_library(X::PUBLIB ALIAS XPUB)
+
+target_link_libraries(XPUB PUBLIC pthread)
+target_link_libraries(XPUB
+    PUBLIC 
+        X::THIRD
+)
+
+target_include_directories(XPUB PUBLIC ./XHTTP)
+target_include_directories(XPUB PUBLIC ./XLog)
+target_include_directories(XPUB PUBLIC ./Xml)
+target_include_directories(XPUB PUBLIC ./XNet)
+target_include_directories(XPUB PUBLIC ./XPthread)
+target_include_directories(XPUB PUBLIC ./XResource)
+target_include_directories(XPUB PUBLIC ./XRoot)
+target_include_directories(XPUB PUBLIC ./XStruct)
+target_include_directories(XPUB PUBLIC ./XUserServlet)
+target_include_directories(XPUB PUBLIC ./XUtils)
+target_include_directories(XPUB PUBLIC ../third/Xml)
+target_include_directories(XPUB PUBLIC .)
+
+
+
+############################################################
+# Create an executable
+############################################################
+
+# Add an executable with the above sources
+add_executable(test
+    XWebServer.cpp
+    test.cpp
+)
+
+# link the new hello_library target with the hello_binary target
+target_link_libraries(test
+    PUBLIC 
+        X::PUBLIB
+)
