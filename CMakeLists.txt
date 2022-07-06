@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
-PROJECT (TEST VERSION 1.0.0)
+PROJECT (XWeb VERSION 1.0.0)
 
-configure_file(src/Config.h.in Config.h)
+configure_file(Config.h.in Config.h)
 
 SET(CMAKE_BUILD_TYPE "Debug")
 SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
